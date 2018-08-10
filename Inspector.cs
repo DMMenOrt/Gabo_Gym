@@ -19,20 +19,22 @@ namespace ConexionDB
         private NpgsqlCommand comando;
         private String id, nombre, p_apellido, s_apellido, f_inicio, f_fin, query;
         private String clave_socio, fecha, estatura, peso,pecho, espalda, biceps, cintura, cadera, cuadriceps, pantorrilla, agua_espalda_sup, grasa_espalda_sup;
+        private String agua_espalda_inf, grasa_espalda_inf, agua_abdomen_sup, grasa_abdomen_sup, agua_abdomen_inf, grasa_abdomen_inf, agua_triceps, grasa_triceps;
+        private String agua_abductores, grasa_abductores, agua_chaparreras, grasa_chaparreras;
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            
             if (id == null || fecha == null)
             {
                 MessageBox.Show("Selecciona una simetria");
             }
             else
             {
-                query = "DELETE FROM gym.simetrias WHERE 1 = 1 AND clave_socio = " + id +"AND fecha LIKE "+fecha;
-
                 try
                 {
+                    string fecha_sub = fecha.Substring(0, 10);
+                    query = "DELETE FROM gym.simetrias WHERE 1 = 1 AND clave_socio = " + id + "AND fecha = '" + fecha_sub + "'";
                     comando = new NpgsqlCommand(query, ejec.conexion);
                     sda.SelectCommand = comando;
                     DataTable dt = new DataTable();
@@ -49,8 +51,7 @@ namespace ConexionDB
             }
         }
 
-        private String agua_espalda_inf, grasa_espalda_inf, agua_abdomen_sup, grasa_abdomen_sup, agua_abdomen_inf, grasa_abdomen_inf, agua_triceps, grasa_triceps;
-        private String agua_abductores, grasa_abductores, agua_chaparreras, grasa_chaparreras;
+        
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -89,10 +90,9 @@ namespace ConexionDB
 
         private void button2_Click(object sender, EventArgs e)
         {
-            query = "SELECT * FROM gym.simetrias WHERE 1 = 1 AND clave_socio = "+id+" ORDER BY fecha DESC";
-            
                 try
                 {
+                    query = "SELECT * FROM gym.simetrias WHERE 1 = 1 AND clave_socio = " + id + " ORDER BY fecha DESC";
                     comando = new NpgsqlCommand(query, ejec.conexion);
                     sda.SelectCommand = comando;
                     DataTable dt = new DataTable();
@@ -114,7 +114,7 @@ namespace ConexionDB
             nombre = textBox2.Text;
             p_apellido = textBox3.Text;
             s_apellido = textBox4.Text;
-            ejec.modificaSocio(nombre,p_apellido,s_apellido,id);            
+            ejec.ModificaSocio(nombre,p_apellido,s_apellido,id);            
         }
 
         public Inspector(Ejecutor exec, String id, String nombre, String p_apellido, String s_apellido, String f_inicio,String f_fin)
@@ -132,14 +132,14 @@ namespace ConexionDB
             this.nombre = nombre;
             this.p_apellido = p_apellido;
             this.s_apellido = s_apellido;
-            this.f_inicio = f_inicio;
-            this.f_fin = f_fin;
+            this.f_inicio = f_inicio.Substring(0,10);
+            this.f_fin = f_fin.Substring(0, 10);
             textBox1.Text = id;
             textBox2.Text = nombre;
             textBox3.Text = p_apellido;
             textBox4.Text = s_apellido;
-            textBox5.Text = f_inicio;
-            textBox6.Text = f_fin;
+            textBox5.Text = this.f_inicio;
+            textBox6.Text = this.f_fin;
         }
         private void inspector(Object sender, FormClosingEventHandler e)
         {

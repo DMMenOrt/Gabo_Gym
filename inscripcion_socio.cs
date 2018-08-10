@@ -38,7 +38,19 @@ namespace ConexionDB
             }
             else
             {
-                ejec.altaSocio(textBox1.Text, textBox2.Text, textBox3.Text);
+                if (textBox1.Text == "")
+                {
+                    textBox1.Text = "NULL";
+                }
+                if (textBox2.Text == "")
+                {
+                    textBox2.Text = "NULL";
+                }
+                if (textBox3.Text == "")
+                {
+                    textBox3.Text = "NULL";
+                }
+                ejec.AltaSocio(textBox1.Text, textBox2.Text, textBox3.Text);
                 this.Close();
             }
             

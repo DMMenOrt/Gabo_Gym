@@ -17,12 +17,7 @@ namespace ConexionDB
         public Main()
         {
             InitializeComponent();
-            if (exec.conexion.State == System.Data.ConnectionState.Closed)
-            {
-                Log_in log_in = new Log_in(exec);
-                log_in.MdiParent = this;
-                log_in.Show();
-            }
+            
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -87,6 +82,13 @@ namespace ConexionDB
                 ver_socios.MdiParent = this;
                 ver_socios.Show();
             }
+        }
+
+        private void verProductosServiciosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GestorProductos gestion_productos = new GestorProductos(exec);
+            gestion_productos.MdiParent = this;
+            gestion_productos.Show();
         }
     }
 }

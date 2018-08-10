@@ -36,7 +36,7 @@ namespace ConexionDB
                     MessageBox.Show("Introduce una contraseña");
                 } else
                 {
-                    ejec.conector(textBox1.Text, textBox2.Text);
+                    ejec.Conector(textBox1.Text, textBox2.Text);
                     if (ejec.conexion.State == System.Data.ConnectionState.Open)
                     {
                         MessageBox.Show("Conexión exitosa");

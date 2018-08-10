@@ -803,3 +803,10 @@ ALTER TABLE ONLY usuarios
 -- PostgreSQL database dump complete
 --
 
+INSERT INTO gym.tipo_producto values ('1','Producto');
+INSERT INTO gym.tipo_producto VALUES('2','Servicio');
+
+INSERT INTO gym.tipos_ventas values('1','Suscripcion a servicio');
+INSERT INTO gym.tipos_ventas VALUES('2','Mensualidad');
+INSERT INTO gym.tipos_ventas VALUES('3','Compra de producto');
+INSERT INTO gym.tipos_ventas VALUES('4','Visita');

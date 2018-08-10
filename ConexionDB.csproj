@@ -81,6 +81,12 @@
     <Compile Include="Capturador_Simetrias.Designer.cs">
       <DependentUpon>Capturador_Simetrias.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestorProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestorProductos.Designer.cs">
+      <DependentUpon>GestorProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inspector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Capturador_Simetrias.resx">
       <DependentUpon>Capturador_Simetrias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestorProductos.resx">
+      <DependentUpon>GestorProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inspector.resx">
       <DependentUpon>Inspector.cs</DependentUpon>

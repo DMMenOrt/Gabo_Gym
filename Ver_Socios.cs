@@ -17,7 +17,7 @@ namespace ConexionDB
         private Ejecutor ejec;
         private NpgsqlDataAdapter sda;
         private NpgsqlCommand comando;
-        private String where1, where2, where3, where4, where5, query;
+        private String where, where3, where4, where5, query;
         private String id,nombre, p_apellido, s_apellido, f_inicio, f_fin;
 
         public Ver_Socios(Ejecutor exec)        
@@ -27,7 +27,26 @@ namespace ConexionDB
             sda = new NpgsqlDataAdapter();
             button1.Enabled = false;
             button4.Enabled = false;
+            comboBox1.Items.Add("Todos");
+            comboBox1.Items.Add("Activos");
+            comboBox1.Items.Add("Inactivos");
+            comboBox1.SelectedItem = "Todos";
+        }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem.ToString() == "Todos")
+            {
+                where = "";
+            }
+            if (comboBox1.SelectedItem.ToString() == "Activos")
+            {
+                where = "AND CURRENT_DATE <= fecha_fin ";
+            }
+            if (comboBox1.SelectedItem.ToString() == "Inactivos")
+            {
+                where = "AND CURRENT_DATE > fecha_fin ";
+            }
         }
 
         private void Ver_Socios_Load(object sender, EventArgs e)
@@ -40,31 +59,11 @@ namespace ConexionDB
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
-            checkBox3.Checked = false;
-            checkBox2.Checked = false;
-            checkBox1.Checked = false;
             button4.Enabled = false;
             dataGridView1.DataSource = null;
             dataGridView1.Refresh();
             button3.Enabled = true;
             button1.Enabled = false;
-        }
-
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
-        {
-            if(checkBox3.Checked == true )
-            {
-                checkBox1.Checked = false;
-                checkBox2.Checked = false;
-                checkBox1.Enabled = false;
-                checkBox2.Enabled = false;
-            } else
-            {
-                checkBox1.Enabled = true;
-                checkBox2.Enabled = true;
-                checkBox1.Checked = false;
-                checkBox2.Checked = false;
-            }
         }
 
         private void Visualizador_cerrado(Object sender, FormClosingEventHandler e)
@@ -75,102 +74,48 @@ namespace ConexionDB
         private void button3_Click(object sender, EventArgs e)
         {
             query = "SELECT * FROM gym.socios WHERE 1 = 1 ";
-            if (checkBox3.Checked == true || checkBox2.Checked == true || checkBox1.Checked == true)
+            
+            if (textBox1.Text == "")
             {
-                if (checkBox3.Checked == true)
-                {
-                    where1 = "";
-                    where2 = "";
-                }
-                if (checkBox2.Checked == true)
-                {
-                    where2 = "AND fecha_inicio > fecha_fin ";
-                    where1 = "";
-                }
-                if (checkBox1.Checked == true)
-                {
-                    where1 = "AND fecha_inicio <= fecha_fin ";
-                    where2 = "";
-                }
-                if (textBox1.Text == "")
-                {
-                    where3 = "";
-                }else
-                {
-                    where3 = "AND nombre LIKE '%" + textBox1.Text + "%' ";
-                }
-                if (textBox2.Text == "")
-                {
-                    where4 = "";
-                }
-                else
-                {
-                    where4 = "AND primer_apellido LIKE '%" + textBox2.Text + "%' ";
-                }
-                if (textBox3.Text == "")
-                {
-                    where5 = "";
-                }
-                else
-                {
-                    where5 = "AND segundo_apellido LIKE '%" + textBox3.Text + "%' ";
-                }
-                try
-                {
-                    query = query + where1 + where2 + where3 + where4 + where5;
-                    comando = new NpgsqlCommand(query, ejec.conexion);
-                    sda.SelectCommand = comando;
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                    dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                    button1.Enabled = true;
-                    button4.Enabled = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-            } else
+                where3 = "";
+            }else
             {
-                MessageBox.Show("Selecciona Activos, Inactivos, o Todos");
+                where3 = "AND nombre ILIKE '%" + textBox1.Text + "%' ";
             }
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox2.Checked == true)
+            if (textBox2.Text == "")
             {
-                checkBox1.Checked = false;
-                checkBox3.Checked = false;
-                checkBox1.Enabled = false;
-                checkBox3.Enabled = false;
-            } else
-            {
-                checkBox1.Checked = false;
-                checkBox3.Checked = false;
-                checkBox1.Enabled = true;
-                checkBox3.Enabled = true;
-            }
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked == true)
-            {
-                checkBox2.Checked = false;
-                checkBox3.Checked = false;
-                checkBox2.Enabled = false;
-                checkBox3.Enabled = false;
+                where4 = "";
             }
             else
             {
-                checkBox2.Checked = false;
-                checkBox3.Checked = false;
-                checkBox2.Enabled = true;
-                checkBox3.Enabled = true;
+                where4 = "AND primer_apellido ILIKE '%" + textBox2.Text + "%' ";
             }
-        }        
+            if (textBox3.Text == "")
+            {
+                where5 = "";
+            }
+            else
+            {
+                where5 = "AND segundo_apellido ILIKE '%" + textBox3.Text + "%' ";
+            }
+            try
+            {
+                query = query + where + where3 + where4 + where5;
+                comando = new NpgsqlCommand(query, ejec.conexion);
+                sda.SelectCommand = comando;
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                dataGridView1.DataSource = dt;
+                dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                button1.Enabled = true;
+                button4.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            
+        }   
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -204,18 +149,11 @@ namespace ConexionDB
                 MessageBox.Show("Selecciona un socio");
             } else
             {
-                query = "DELETE FROM gym.socios WHERE 1 = 1 AND clave_socio = " + id;
-
+                
                 try
                 {
-                    comando = new NpgsqlCommand(query, ejec.conexion);
-                    sda.SelectCommand = comando;
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                    dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                    button1.Enabled = true;
-                    dataGridView1.Refresh();
+                    ejec.EliminaraSocio(id);
+                    button3.PerformClick();
                 }
                 catch (Exception ex)
                 {
