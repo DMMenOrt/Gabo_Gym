@@ -120,7 +120,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Name = "inscripcion_socio";
-            this.Text = "inscripcion de socio";
+            this.Text = "Inscribir socio";
             this.Load += new System.EventHandler(this.inscripcion_socio_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -129,7 +129,7 @@
             this.groupBox1.Size = new System.Drawing.Size(787, 115);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Insersion producto o servicio";
+            this.groupBox1.Text = "Resgistrar un producto o servicio";
             // 
             // label5
             // 
@@ -212,7 +212,7 @@
             this.groupBox2.Size = new System.Drawing.Size(783, 459);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Gestion productos y servicios";
+            this.groupBox2.Text = "Gestión productos y servicios";
             // 
             // button6
             // 
