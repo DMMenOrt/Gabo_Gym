@@ -50,22 +50,22 @@ SET default_with_oids = false;
 -- TOC entry 201 (class 1259 OID 25355)
 -- Name: precios; Type: TABLE; Schema: gym; Owner: gabo_adm
 --
-
+drop table if exists precios;
 CREATE TABLE precios (
     clave_producto integer NOT NULL,
     fecha_alta date NOT NULL,
-    precio numeric(5,2),
+    precio decimal(6,2),
     fecha_expiracion date
 );
 
 
-ALTER TABLE precios OWNER TO gabo_adm;
+ALTER TABLE gym.precios OWNER TO gabo_adm;
 
 --
 -- TOC entry 200 (class 1259 OID 25344)
 -- Name: productos; Type: TABLE; Schema: gym; Owner: gabo_adm
 --
-
+drop table if exists productos;
 CREATE TABLE productos (
     clave_producto integer NOT NULL,
     clave_tipo_producto integer,
@@ -104,7 +104,7 @@ ALTER SEQUENCE productos_clave_producto_seq OWNED BY productos.clave_producto;
 -- TOC entry 194 (class 1259 OID 25245)
 -- Name: simetrias; Type: TABLE; Schema: gym; Owner: gabo_adm
 --
-
+drop table if exists simetrias;
 CREATE TABLE simetrias (
     clave_socio integer NOT NULL,
     fecha date,
@@ -165,6 +165,7 @@ ALTER SEQUENCE simetrias_clave_socio_seq OWNED BY simetrias.clave_socio;
 -- Name: socios; Type: TABLE; Schema: gym; Owner: gabo_adm
 --
 
+drop table if exists socios;
 CREATE TABLE socios (
     clave_socio integer NOT NULL,
     nombre character varying(40),
@@ -206,6 +207,7 @@ ALTER SEQUENCE socios_clave_socio_seq OWNED BY socios.clave_socio;
 -- Name: tipo_producto; Type: TABLE; Schema: gym; Owner: gabo_adm
 --
 
+drop table if exists tipo_producto;
 CREATE TABLE tipo_producto (
     clave_tipo_producto integer NOT NULL,
     tipo_producto character varying(20)
@@ -242,7 +244,7 @@ ALTER SEQUENCE tipo_producto_clave_tipo_producto_seq OWNED BY tipo_producto.clav
 -- TOC entry 190 (class 1259 OID 25229)
 -- Name: tipos_ventas; Type: TABLE; Schema: gym; Owner: gabo_adm
 --
-
+drop table if exists tipos_ventas;
 CREATE TABLE tipos_ventas (
     clave_tipo_venta integer NOT NULL,
     tipo_venta character varying(30)
@@ -279,7 +281,7 @@ ALTER SEQUENCE tipos_ventas_clave_tipo_venta_seq OWNED BY tipos_ventas.clave_tip
 -- TOC entry 204 (class 1259 OID 25403)
 -- Name: venta_producto; Type: TABLE; Schema: gym; Owner: gabo_adm
 --
-
+drop table if exists venta_producto;
 CREATE TABLE venta_producto (
     clave_producto integer NOT NULL,
     clave_venta integer NOT NULL,
@@ -293,7 +295,7 @@ ALTER TABLE venta_producto OWNER TO gabo_adm;
 -- TOC entry 203 (class 1259 OID 25377)
 -- Name: ventas; Type: TABLE; Schema: gym; Owner: gabo_adm
 --
-
+drop table if exists ventas;
 CREATE TABLE ventas (
     clave_venta integer NOT NULL,
     clave_tipo_venta integer,
@@ -334,7 +336,7 @@ SET search_path = usrs, pg_catalog;
 -- TOC entry 196 (class 1259 OID 25261)
 -- Name: tipo_usuarios; Type: TABLE; Schema: usrs; Owner: gabo_adm
 --
-
+drop table if exists tipo_usuarios;
 CREATE TABLE tipo_usuarios (
     id_tipo_usuario integer NOT NULL,
     tipo_usuario character varying(40),
@@ -375,7 +377,7 @@ ALTER SEQUENCE tipo_usuarios_id_tipo_usuario_seq OWNED BY tipo_usuarios.id_tipo_
 -- TOC entry 198 (class 1259 OID 25321)
 -- Name: usuarios; Type: TABLE; Schema: usrs; Owner: gabo_adm
 --
-
+drop table if exists usuarios;
 CREATE TABLE usuarios (
     id_usuario integer NOT NULL,
     nombre_usuario character varying(40),

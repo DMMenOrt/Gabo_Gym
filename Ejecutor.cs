@@ -14,7 +14,7 @@ namespace ConexionDB{
     public class Ejecutor  {
         
         public NpgsqlConnection conexion = new NpgsqlConnection();
-
+        private String query;
         public Ejecutor(){
             
         }
@@ -47,12 +47,12 @@ namespace ConexionDB{
             }
             
         }
-
+        //CURRENT_DATE +  INTERVAL '" + duracion + " months' para calcular la fecha de termino de la suscripcion
         public void AltaSocio(String nombre,String pApellido, String sApellido){
 
             try
             {
-                String query = "INSERT INTO gym.socios (nombre,primer_apellido,segundo_apellido, fecha_inicio, fecha_fin) VALUES ('" + nombre + "', '" + pApellido + "', '" + sApellido + "', CURRENT_DATE, CURRENT_DATE + 1);";
+                query = "INSERT INTO gym.socios (nombre,primer_apellido,segundo_apellido, fecha_inicio, fecha_fin) VALUES ('" + nombre + "', '" + pApellido + "', '" + sApellido + "', CURRENT_DATE, CURRENT_DATE + 1);";
                 NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
                 comando.Connection = conexion;
                 comando.CommandTimeout = 60;
@@ -70,12 +70,12 @@ namespace ConexionDB{
             }
         }
 
-        public void AltaProducto(int tipo, String nombre, int duracion, double precio, int clave)
+        public void AltaProducto(int tipo, String nombre, int duracion, decimal precio, int clave)
         {
-
+            
             try
             {
-                String query = "INSERT INTO gym.productos (clave_tipo_producto,nombre_producto,duracion,clave_producto) VALUES ('" + tipo + "', '" + nombre + "', '" + duracion + "','"+clave+"');";
+                query = "INSERT INTO gym.productos (clave_tipo_producto,nombre_producto,duracion,clave_producto) VALUES ('" + tipo + "', '" + nombre + "', '" + duracion + "','" + clave + "');";
                 NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
                 comando.Connection = conexion;
                 comando.CommandTimeout = 60;
@@ -87,7 +87,7 @@ namespace ConexionDB{
                         query = "INSERT INTO gym.precios(clave_producto,fecha_alta,precio,fecha_expiracion) VALUES ('" + clave + "',CURRENT_DATE, '" + precio + "',NULL);";
                     } else
                     {
-                        query = "INSERT INTO gym.precios(clave_producto,fecha_alta,precio,fecha_expiracion) VALUES ('" + clave + "',CURRENT_DATE, '" + precio + "',CURRENT_DATE +  INTERVAL '" + duracion + " months');";
+                        query = "INSERT INTO gym.precios(clave_producto,fecha_alta,precio,fecha_expiracion) VALUES ('" + clave + "',CURRENT_DATE, '" + precio + "',NULL);";
                     }
                     
                     comando = new NpgsqlCommand(query, conexion);
@@ -122,7 +122,7 @@ namespace ConexionDB{
         {
             try
             {
-                String query = "UPDATE gym.socios SET nombre = '"+nombre+"', primer_apellido = '"+pApellido+"', segundo_apellido = '"+sApellido+"' WHERE clave_socio = "+id;
+                query = "UPDATE gym.socios SET nombre = '"+nombre+"', primer_apellido = '"+pApellido+"', segundo_apellido = '"+sApellido+"' WHERE clave_socio = "+id;
                 NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
                 comando.Connection = conexion;
                 comando.CommandTimeout = 60;
@@ -144,13 +144,15 @@ namespace ConexionDB{
 
         public void EliminaraSocio(String id)
         {
-            String query = "DELETE FROM gym.socios WHERE 1 = 1 AND clave_socio = " + id;
+            query = "DELETE FROM gym.socios WHERE 1 = 1 AND clave_socio = " + id;
 
             try
             {
-                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
-                comando.Connection = conexion;
-                comando.CommandTimeout = 60;
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion)
+                {
+                    Connection = conexion,
+                    CommandTimeout = 60
+                };
                 comando.Prepare();
                 if (comando.ExecuteNonQuery() > 0)
                 {
@@ -159,6 +161,41 @@ namespace ConexionDB{
                 else
                 {
                     MessageBox.Show("Error al eliminar socio");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        public void EliminarProducto(String id)
+        {
+            query = "DELETE FROM gym.precios WHERE 1 = 1 AND clave_producto = " + id;
+            try
+            {
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                comando.Connection = conexion;
+                comando.CommandTimeout = 60;
+                comando.Prepare();
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    query = "DELETE FROM gym.productos WHERE 1 = 1 AND clave_producto = " + id;
+                    comando = new NpgsqlCommand(query, conexion)
+                    {
+                        Connection = conexion,
+                        CommandTimeout = 60
+                    };
+                    comando.Prepare();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        MessageBox.Show("Registro eliminado");
+                    }
+                        
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar");
                 }
             }
             catch (Exception ex)
@@ -197,7 +234,7 @@ namespace ConexionDB{
                 if (val21 == "") { val21 = "NULL"; }
                 if (val22 == "") { val22 = "NULL"; }
                 if (val23 == "") { val23 = "NULL"; }
-                String query = "INSERT INTO gym.simetrias VALUES (" + id + ",CURRENT_DATE," + val1 + "," + val2 + "," + val3 + "," + val4 + "," + val5 + "," + val6 + "," + val7
+                query = "INSERT INTO gym.simetrias VALUES (" + id + ",CURRENT_DATE," + val1 + "," + val2 + "," + val3 + "," + val4 + "," + val5 + "," + val6 + "," + val7
                 + "," + val8 + "," + val9 + "," + val10 + "," + val11 + "," + val12 + "," + val13 + "," + val14 + "," + val15 + "," + val16 + "," + val17 + "," + val18 + ","
                 + val19 + "," + val20 + "," + val21 + "," + val22 + "," + val23 + ");";
                 NpgsqlCommand comando = new NpgsqlCommand(query, conexion);

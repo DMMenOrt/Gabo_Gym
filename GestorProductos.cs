@@ -16,7 +16,7 @@ namespace ConexionDB
     {
         private int tipo_producto;
         private Ejecutor ejec;
-        private String query,where1,where2,where3;
+        private String query,where1,where2,where3,clave_producto,clave_tipo_prod, nombre_producto,duracion,precio,fecha_alta,fecha_expiracion;
         private NpgsqlDataAdapter sda;
         private NpgsqlCommand comando;
         public GestorProductos(Ejecutor exec)
@@ -30,6 +30,7 @@ namespace ConexionDB
             textBox3.Enabled = false;
             textBox2.Enabled = false;
             textBox1.Enabled = false;
+            textBox4.Enabled = false;
             comboBox1.Enabled = false;
             button1.Enabled = false;
             button2.Enabled = false;
@@ -44,6 +45,19 @@ namespace ConexionDB
             comboBox3.Enabled = false;
             button4.Enabled = false;
             button6.Enabled = false;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (clave_producto == null || fecha_alta == null || clave_producto == "" || fecha_alta == "")
+            {
+                MessageBox.Show("Selecciona un producto");
+            }
+            else
+            {
+                DetallesProdServ inspeccionar_prod = new DetallesProdServ(ejec, clave_producto, clave_tipo_prod, nombre_producto, duracion, precio, fecha_expiracion,fecha_alta);
+                inspeccionar_prod.Show();
+            }
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,6 +85,7 @@ namespace ConexionDB
                 button2.Enabled = false;
                 comboBox1.Enabled = false;
                 textBox1.Enabled = false;
+                textBox4.Enabled = false;
             }
             else
             {
@@ -80,6 +95,8 @@ namespace ConexionDB
                 button2.Enabled = true;
                 comboBox1.Enabled = true;
                 textBox1.Enabled = true;
+                textBox4.Enabled = true;
+
             }
         }
 
@@ -94,7 +111,7 @@ namespace ConexionDB
         {
             try
             {
-                query = "select * from gym.productos as prod join gym.precios as pre on pre.clave_producto = prod.clave_producto join gym.tipo_producto as tip on prod.clave_tipo_producto = tip.clave_tipo_producto WHERE 1 = 1 ";
+                query = "select prod.clave_producto,tip.tipo_producto,prod.nombre_producto,duracion,precio,fecha_alta,fecha_expiracion from gym.productos as prod join gym.precios as pre on pre.clave_producto = prod.clave_producto join gym.tipo_producto as tip on prod.clave_tipo_producto = tip.clave_tipo_producto WHERE 1 = 1 ";
                 if (comboBox2.SelectedItem.ToString() == "Todo")
                 {
                     where1 = " ";
@@ -113,7 +130,7 @@ namespace ConexionDB
                 }
                 if (comboBox3.SelectedItem.ToString() == "Activos")
                 {
-                    where2 = "AND CURRENT_DATE <= fecha_expiracion ";
+                    where2 = "AND ( CURRENT_DATE <= fecha_expiracion OR fecha_expiracion IS NULL ) ";
                 }
                 if (comboBox3.SelectedItem.ToString() == "Inactivos")
                 {
@@ -152,6 +169,38 @@ namespace ConexionDB
             dataGridView1.Refresh();
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (clave_producto == null || clave_producto == "")
+            {
+                MessageBox.Show("Selecciona producto para eliminarlo");
+            }
+            else
+            {
+
+                try
+                {
+                    ejec.EliminarProducto(clave_producto);
+                    button3.PerformClick();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            clave_producto = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            clave_tipo_prod = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            nombre_producto = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            duracion = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+            precio = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+            fecha_alta = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+            fecha_expiracion = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
+        }
+
         private void Gestor_productos_cerrado(Object sender, FormClosingEventHandler e)
         {
             this.Close();
@@ -165,8 +214,19 @@ namespace ConexionDB
                 {
                     textBox3.Text = "0";
                 }
+                if (textBox4.Text == "")
+                {
+                    textBox4.Text = "NULL";
+                }
+                if (textBox2.Text == "")
+                {
+                    textBox2.Text = "NULL";
+                }
+                if (textBox1.Text == ""){
+                    textBox1.Text = "NULL";
+                }
                 int duracion = Convert.ToInt32(textBox3.Text);
-                double precio = Convert.ToDouble(textBox1.Text);
+                decimal precio = Convert.ToDecimal(textBox1.Text);
                 int clave = Convert.ToInt32(textBox4.Text);
                 ejec.AltaProducto(tipo_producto, textBox2.Text, duracion, precio, clave);
             } catch (Exception ex)
