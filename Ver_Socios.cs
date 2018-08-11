@@ -152,8 +152,11 @@ namespace ConexionDB
                 
                 try
                 {
-                    ejec.EliminaraSocio(id);
-                    button3.PerformClick();
+                    DialogResult result = MessageBox.Show("¿Desea eliminar los datos del socio?", "Eliminar socio", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if(result.Equals(DialogResult.OK)) {
+                        ejec.EliminaraSocio(id);
+                        button3.PerformClick();
+                    }
                 }
                 catch (Exception ex)
                 {
