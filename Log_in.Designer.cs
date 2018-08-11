@@ -66,6 +66,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 3;
+            tihs.label2.PasswordChar = '*';
             this.label2.Text = "Contraseña";
             // 
             // button1
