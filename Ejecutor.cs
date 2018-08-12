@@ -77,7 +77,119 @@ namespace ConexionDB{
                 MessageBox.Show("Error: " + e.Message);
             }
         }
+        //Se inserta empleado
+        public void AltaEmpleado(String nombre, String pApellido, String sApellido, String sUsuario, String clave, String sTipo)
+        {
 
+            try
+            {
+                if (clave == "AUTOMATICA" && sTipo == "Administrador")
+                {
+                    query = "INSERT INTO usrs.usuarios (nombre,primer_apellido,segundo_apellido, nombre_usuario, id_tipo_usuario) VALUES ('" + nombre + "', '" + pApellido + "', '" + sApellido + "', '" + sUsuario + "', '" + 1 + "');";
+                }
+                else
+                {
+                    if (clave == "AUTOMATICA" && sTipo == "Empleado")
+                    {
+                        query = "INSERT INTO usrs.usuarios (nombre,primer_apellido,segundo_apellido, nombre_usuario, id_tipo_usuario) VALUES ('" + nombre + "', '" + pApellido + "', '" + sApellido + "', '" + sUsuario + "', '" + 2 + "');";
+
+                    }
+                    else
+                    {
+                        if (sTipo == "Administrador")
+                        {
+                            query = "INSERT INTO usrs.usuarios (id_usuario,nombre,primer_apellido,segundo_apellido, nombre_usuario, id_tipo_usuario) VALUES (" + clave + ",'" + nombre + "', '" + pApellido + "', '" + sApellido + "', '" + sUsuario + "', '" + 1 + "');";
+                        }
+                        else
+                        {
+                            query = "INSERT INTO usrs.usuarios (id_usuario,nombre,primer_apellido,segundo_apellido, nombre_usuario, id_tipo_usuario) VALUES (" + clave + ",'" + nombre + "', '" + pApellido + "', '" + sApellido + "', '" + sUsuario + "', '" + 2 + "');";
+                        }
+
+
+                    }
+
+                    NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                    comando.Connection = conexion;
+                    comando.CommandTimeout = 60;
+                    comando.Prepare();
+
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        MessageBox.Show("Empleado registrado exitosamente");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar empleado");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+            }
+        }
+        
+        //Eliminar empleado
+        public void EliminarEmpleado(String id)
+        {
+            query = "DELETE FROM usrs.usuarios WHERE id_usuario = " + id ;
+
+            try
+            {
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion)
+                {
+                    Connection = conexion,
+                    CommandTimeout = 60
+                };
+                comando.Prepare();
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    MessageBox.Show("El empleado ha sido eliminado");
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar empleado");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+        //Modificar empleado
+        public void ModificaEmpleado(String nombre, String pApellido, String sApellido, String sUsuario, String sTipo, String id)
+        {
+            
+            try
+            {
+                if (sTipo == "Administrador")
+                {
+                    tipo = 1;
+                }
+                else
+                {
+                    tipo = 2;
+                }
+
+                query = "UPDATE usrs.usuarios SET nombre = '" + nombre + "', primer_apellido = '" + pApellido + "', segundo_apellido = '" + sApellido + "', nombre_usuario = '" + sUsuario + "', id_tipo_usuario = '" + tipo + "' WHERE id_usuario = " + id;
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                comando.Connection = conexion;
+                comando.CommandTimeout = 60;
+                comando.Prepare();
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    MessageBox.Show("Se ha actualizado el registro de este empleado");
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar empleado");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+            }
+        }
         //SE EJECUTA JUSTO DESPUES DE INSERTAR AL SOCIO
         public void Venta_suscripcion(String clave_producto,String precio,String clave_socio)
         {
