@@ -86,9 +86,31 @@ namespace ConexionDB
 
         private void verProductosServiciosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GestorProductos gestion_productos = new GestorProductos(exec);
-            gestion_productos.MdiParent = this;
-            gestion_productos.Show();
+            if (exec.conexion.State == System.Data.ConnectionState.Closed)
+            {
+                MessageBox.Show("Necesitas iniciar sesion para continuar");
+            }
+            else
+            {
+                GestorProductos gestion_productos = new GestorProductos(exec);
+                gestion_productos.MdiParent = this;
+                gestion_productos.Show();
+            }
+            
+        }
+
+        private void ventasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (exec.conexion.State == System.Data.ConnectionState.Closed)
+            {
+                MessageBox.Show("Necesitas iniciar sesion para continuar");
+            }
+            else
+            {
+                Gestor_Ventas gestion_ventas = new Gestor_Ventas(exec);
+                gestion_ventas.MdiParent = this;
+                gestion_ventas.Show();
+            }
         }
     }
 }

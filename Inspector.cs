@@ -92,8 +92,9 @@ namespace ConexionDB
         {
                 try
                 {
-                    query = "SELECT * FROM gym.simetrias WHERE 1 = 1 AND clave_socio = " + id + " ORDER BY fecha DESC";
-                    comando = new NpgsqlCommand(query, ejec.conexion);
+               
+                query = "SELECT * FROM gym.simetrias WHERE 1 = 1 AND clave_socio = " + id + " ORDER BY fecha DESC";
+                comando = new NpgsqlCommand(query, ejec.conexion);
                     sda.SelectCommand = comando;
                     DataTable dt = new DataTable();
                     sda.Fill(dt);

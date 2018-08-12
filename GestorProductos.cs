@@ -111,7 +111,7 @@ namespace ConexionDB
         {
             try
             {
-                query = "select prod.clave_producto,tip.tipo_producto,prod.nombre_producto,duracion,precio,fecha_alta,fecha_expiracion from gym.productos as prod join gym.precios as pre on pre.clave_producto = prod.clave_producto join gym.tipo_producto as tip on prod.clave_tipo_producto = tip.clave_tipo_producto WHERE 1 = 1 ";
+                query = "select prod.clave_producto as " + '"' + "Clave del producto" + '"' + ",tip.tipo_producto as " + '"' + "Tipo de producto" + '"' + ",prod.nombre_producto as " + '"' + "Nombre del producto" + '"' + ",duracion,precio,fecha_alta as " + '"' + "Fecha de registro" + '"' + ",fecha_expiracion as " + '"' + "Fecha de vencimiento" + '"' + " from gym.productos as prod join gym.precios as pre on pre.clave_producto = prod.clave_producto join gym.tipo_producto as tip on prod.clave_tipo_producto = tip.clave_tipo_producto WHERE 1 = 1 ";
                 if (comboBox2.SelectedItem.ToString() == "Todo")
                 {
                     where1 = " ";
@@ -192,13 +192,20 @@ namespace ConexionDB
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            clave_producto = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            clave_tipo_prod = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            nombre_producto = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-            duracion = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-            precio = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
-            fecha_alta = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
-            fecha_expiracion = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
+            try
+            {
+                clave_producto = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                clave_tipo_prod = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                nombre_producto = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                duracion = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                precio = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+                fecha_alta = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+                fecha_expiracion = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
+            } catch (Exception  ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            
         }
 
         private void Gestor_productos_cerrado(Object sender, FormClosingEventHandler e)

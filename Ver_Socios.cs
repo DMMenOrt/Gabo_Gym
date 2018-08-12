@@ -73,7 +73,7 @@ namespace ConexionDB
 
         private void button3_Click(object sender, EventArgs e)
         {
-            query = "SELECT * FROM gym.socios WHERE 1 = 1 ";
+            query = "SELECT clave_socio as " + '"' + "Clave" + '"' + ",nombre as " + '"' + "Nombre" + '"' + ",primer_apellido as " + '"' + "Primer Apellido" + '"' + ", segundo_apellido as " + '"' + "Segundo Apellido" + '"' + ", fecha_inicio as " + '"' + "Fecha de inscripción" + '"' + ", fecha_fin as " + '"' + "Feecha de expiracion de la membresia" + '"' + " FROM gym.socios WHERE 1 = 1 ";
             
             if (textBox1.Text == "")
             {
@@ -152,11 +152,8 @@ namespace ConexionDB
                 
                 try
                 {
-                    DialogResult result = MessageBox.Show("¿Desea eliminar los datos del socio?", "Eliminar socio", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                    if(result.Equals(DialogResult.OK)) {
-                        ejec.EliminaraSocio(id);
-                        button3.PerformClick();
-                    }
+                    ejec.EliminaraSocio(id);
+                    button3.PerformClick();
                 }
                 catch (Exception ex)
                 {

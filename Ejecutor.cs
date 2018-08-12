@@ -48,18 +48,26 @@ namespace ConexionDB{
             
         }
         //CURRENT_DATE +  INTERVAL '" + duracion + " months' para calcular la fecha de termino de la suscripcion
-        public void AltaSocio(String nombre,String pApellido, String sApellido){
+        public void AltaSocio(String nombre,String pApellido, String sApellido,int duracion,String clave,String clave_producto,String precio){
 
             try
             {
-                query = "INSERT INTO gym.socios (nombre,primer_apellido,segundo_apellido, fecha_inicio, fecha_fin) VALUES ('" + nombre + "', '" + pApellido + "', '" + sApellido + "', CURRENT_DATE, CURRENT_DATE + 1);";
+                if (clave == "AUTOMATICA")
+                {
+                    query = "INSERT INTO gym.socios (nombre,primer_apellido,segundo_apellido, fecha_inicio, fecha_fin) VALUES ('" + nombre + "', '" + pApellido + "', '" + sApellido + "', CURRENT_DATE, CURRENT_DATE +  INTERVAL '" + duracion + " months');";
+                }
+                else
+                {
+                    query = "INSERT INTO gym.socios (clave_socio,nombre,primer_apellido,segundo_apellido, fecha_inicio, fecha_fin) VALUES (" + clave + ",'" + nombre + "', '" + pApellido + "', '" + sApellido + "', CURRENT_DATE, CURRENT_DATE +  INTERVAL '" + duracion + " months');";
+                }
+                
                 NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
                 comando.Connection = conexion;
                 comando.CommandTimeout = 60;
                 comando.Prepare();
                 if (comando.ExecuteNonQuery() > 0)
                 {
-                    MessageBox.Show("Socio registrado exitosamente");
+                    Venta_suscripcion(clave_producto, precio, clave);
                 } else
                 {
                     MessageBox.Show("Error al registrar socio");
@@ -68,6 +76,50 @@ namespace ConexionDB{
             {
                 MessageBox.Show("Error: " + e.Message);
             }
+        }
+
+        //SE EJECUTA JUSTO DESPUES DE INSERTAR AL SOCIO
+        public void Venta_suscripcion(String clave_producto,String precio,String clave_socio)
+        {
+            try
+            {
+                query = "INSERT INTO gym.ventas(clave_tipo_venta, clave_socio, fecha_venta) VALUES(1, '" + clave_socio + "', CURRENT_DATE);";
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                comando.Connection = conexion;
+                comando.CommandTimeout = 60;
+                comando.Prepare();
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    query = "SELECT clave_venta FROM gym.ventas WHERE 1=1 AND clave_tipo_venta = 1 AND clave_socio = '" + clave_socio + "' AND fecha_venta = CURRENT_DATE";
+                    comando = new NpgsqlCommand(query, conexion);
+                    comando.Connection = conexion;
+                    comando.CommandTimeout = 60;
+                    comando.Prepare();
+                    int clave_venta = (Int32)comando.ExecuteScalar();
+                    query = "INSERT INTO gym.venta_producto (clave_producto,clave_venta,precio_producto) VALUES ('" + clave_producto + "','" + clave_venta + "','" + precio + "');";
+                    comando = new NpgsqlCommand(query, conexion);
+                    comando.Connection = conexion;
+                    comando.CommandTimeout = 60;
+                    comando.Prepare();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        MessageBox.Show("Proceso de inscripcion completado");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar socio");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error al registrar socio");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+            }
+           
         }
 
         public void AltaProducto(int tipo, String nombre, int duracion, decimal precio, int clave)
@@ -203,6 +255,7 @@ namespace ConexionDB{
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+        
 
         public void InsertaSimetrias(String id, String val1, String val2, String val3, String val4, String val5, String val6, String val7, String val8, String val9,
             String val10, String val11, String val12, String val13, String val14, String val15, String val16, String val17, String val18, String val19, String val20,

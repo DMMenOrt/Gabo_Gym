@@ -145,7 +145,7 @@ namespace ConexionDB
         {
             try
             {
-                String query = "select fecha_alta, fecha_expiracion, precio from gym.precios where clave_producto = '" + clave + "'";
+                String query = "select fecha_alta as "+'"'+"Fecha de registro"+'"'+ ", fecha_expiracion as " + '"' + "Fecha de vencimiento" + '"' + ", precio from gym.precios where clave_producto = '" + clave + "'";
                 NpgsqlCommand comando = new NpgsqlCommand(query, ejec.conexion);
                 NpgsqlDataAdapter sda = new NpgsqlDataAdapter();
                 sda.SelectCommand = comando;

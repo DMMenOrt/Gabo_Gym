@@ -138,3 +138,4 @@ C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\Conex
 C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\ConexionDB.CapturadorSimetrias.resources
 C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\ConexionDB.GestorProductos.resources
 C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\ConexionDB.DetallesProdServ.resources
+C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\ConexionDB.Gestor_Ventas.resources

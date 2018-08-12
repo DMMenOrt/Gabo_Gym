@@ -20,12 +20,7 @@ SET row_security = off;
 -- TOC entry 6 (class 2615 OID 25191)
 -- Name: gym; Type: SCHEMA; Schema: -; Owner: gabo_adm
 --
-CREATE USER gabo_adm WITH SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN REPLICATION BYPASSRLS 
-ENCRYPTED PASSWORD 'g@bo_gym';
 
-CREATE USER gabo_emp WITH NOSUPERUSER LOGIN NOCREATEDB NOCREATEROLE INHERIT REPLICATION ENCRYPTED 
-PASSWORD 'g@bo_emp';
-CREATE SCHEMA gym;
 
 
 ALTER SCHEMA gym OWNER TO gabo_adm;
@@ -740,7 +735,7 @@ SET search_path = gym, pg_catalog;
 --
 
 ALTER TABLE ONLY precios
-    ADD CONSTRAINT precios_clave_producto_fkey FOREIGN KEY (clave_producto) REFERENCES productos(clave_producto);
+    ADD CONSTRAINT precios_clave_producto_fkey FOREIGN KEY (clave_producto) REFERENCES productos(clave_producto) ON DELETE CASCADE;
 
 
 --
@@ -749,7 +744,7 @@ ALTER TABLE ONLY precios
 --
 
 ALTER TABLE ONLY productos
-    ADD CONSTRAINT productos_clave_tipo_producto_fkey FOREIGN KEY (clave_tipo_producto) REFERENCES tipo_producto(clave_tipo_producto);
+    ADD CONSTRAINT productos_clave_tipo_producto_fkey FOREIGN KEY (clave_tipo_producto) REFERENCES tipo_producto(clave_tipo_producto) ON DELETE CASCADE;
 
 
 --
@@ -758,7 +753,7 @@ ALTER TABLE ONLY productos
 --
 
 ALTER TABLE ONLY venta_producto
-    ADD CONSTRAINT venta_producto_clave_producto_fkey FOREIGN KEY (clave_producto) REFERENCES productos(clave_producto);
+    ADD CONSTRAINT venta_producto_clave_producto_fkey FOREIGN KEY (clave_producto) REFERENCES productos(clave_producto) ON DELETE CASCADE;
 
 
 --
@@ -767,7 +762,7 @@ ALTER TABLE ONLY venta_producto
 --
 
 ALTER TABLE ONLY venta_producto
-    ADD CONSTRAINT venta_producto_clave_venta_fkey FOREIGN KEY (clave_venta) REFERENCES ventas(clave_venta);
+    ADD CONSTRAINT venta_producto_clave_venta_fkey FOREIGN KEY (clave_venta) REFERENCES ventas(clave_venta) ON DELETE CASCADE;
 
 
 --
@@ -776,7 +771,7 @@ ALTER TABLE ONLY venta_producto
 --
 
 ALTER TABLE ONLY ventas
-    ADD CONSTRAINT ventas_clave_socio_fkey FOREIGN KEY (clave_socio) REFERENCES socios(clave_socio);
+    ADD CONSTRAINT ventas_clave_socio_fkey FOREIGN KEY (clave_socio) REFERENCES socios(clave_socio) ON DELETE CASCADE;
 
 
 --
@@ -785,7 +780,7 @@ ALTER TABLE ONLY ventas
 --
 
 ALTER TABLE ONLY ventas
-    ADD CONSTRAINT ventas_clave_tipo_venta_fkey FOREIGN KEY (clave_tipo_venta) REFERENCES tipos_ventas(clave_tipo_venta);
+    ADD CONSTRAINT ventas_clave_tipo_venta_fkey FOREIGN KEY (clave_tipo_venta) REFERENCES tipos_ventas(clave_tipo_venta) ON DELETE CASCADE;
 
 
 SET search_path = usrs, pg_catalog;
@@ -796,7 +791,7 @@ SET search_path = usrs, pg_catalog;
 --
 
 ALTER TABLE ONLY usuarios
-    ADD CONSTRAINT usuarios_id_tipo_usuario_fkey FOREIGN KEY (id_tipo_usuario) REFERENCES tipo_usuarios(id_tipo_usuario);
+    ADD CONSTRAINT usuarios_id_tipo_usuario_fkey FOREIGN KEY (id_tipo_usuario) REFERENCES tipo_usuarios(id_tipo_usuario) ON DELETE CASCADE;
 
 
 -- Completed on 2018-08-05 20:50:48
@@ -809,6 +804,6 @@ INSERT INTO gym.tipo_producto values ('1','Producto');
 INSERT INTO gym.tipo_producto VALUES('2','Servicio');
 
 INSERT INTO gym.tipos_ventas values('1','Suscripcion a servicio');
-INSERT INTO gym.tipos_ventas VALUES('2','Mensualidad');
+INSERT INTO gym.tipos_ventas VALUES('2','Pago de servicio');
 INSERT INTO gym.tipos_ventas VALUES('3','Compra de producto');
 INSERT INTO gym.tipos_ventas VALUES('4','Visita');

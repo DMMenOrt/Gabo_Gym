@@ -87,6 +87,12 @@
     <Compile Include="DetallesProdServ.Designer.cs">
       <DependentUpon>DetallesProdServ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gestor_Ventas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestor_Ventas.Designer.cs">
+      <DependentUpon>Gestor_Ventas.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestorProductos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GestorProductos.resx">
       <DependentUpon>GestorProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestor_Ventas.resx">
+      <DependentUpon>Gestor_Ventas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inspector.resx">
       <DependentUpon>Inspector.cs</DependentUpon>
