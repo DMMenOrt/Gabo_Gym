@@ -112,5 +112,33 @@ namespace ConexionDB
                 gestion_ventas.Show();
             }
         }
+        
+        private void agregarEmpleadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (exec.conexion.State == System.Data.ConnectionState.Closed)
+            {
+                MessageBox.Show("Necesitas iniciar sesion para continuar");
+            }
+            else
+            {
+                Empleados empleados = new Empleados(exec);
+                empleados.MdiParent = this;
+                empleados.Show();
+            }
+        }
+        
+         private void verEmpleadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (exec.conexion.State == System.Data.ConnectionState.Closed)
+            {
+                MessageBox.Show("Necesitas iniciar sesion para continuar");
+            }
+            else
+            {
+                Ver_empleados ver_empleados = new Ver_empleados(exec);
+                ver_empleados.MdiParent = this;
+                ver_empleados.Show();
+            }
+        }
     }
 }
