@@ -2,7 +2,6 @@ CREATE SCHEMA gym;
 
 CREATE SCHEMA usrs;
 ALTER SCHEMA usrs OWNER TO gabo_adm;
-create schema gym;
 ALTER SCHEMA gym OWNER TO gabo_adm;
 
 SET search_path = gym, pg_catalog;
@@ -81,6 +80,8 @@ CREATE TABLE venta_producto (
     precio_producto decimal(6,2),
     cantidad integer
 );
+
+alter table venta_producto alter column cantidad set default 1;
 
 drop table if exists ventas;
 CREATE TABLE ventas (
