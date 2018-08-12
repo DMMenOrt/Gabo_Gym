@@ -77,6 +77,7 @@ drop table if exists venta_producto;
 CREATE TABLE venta_producto (
     clave_producto integer NOT NULL,
     clave_venta integer NOT NULL,
+    clave_tipo_venta integer,
     precio_producto decimal(6,2),
     cantidad integer
 );
@@ -85,8 +86,7 @@ alter table venta_producto alter column cantidad set default 1;
 
 drop table if exists ventas;
 CREATE TABLE ventas (
-    clave_venta SERIAL NOT NULL,
-    clave_tipo_venta integer,
+    clave_venta SERIAL NOT NULL,    
     clave_socio integer,
     fecha_venta date
 );
@@ -179,3 +179,8 @@ INSERT INTO gym.tipos_ventas VALUES('4','Visita');
 
 INSERT INTO usrs.tipo_usuarios VALUES ('1', 'Administrador');
 INSERT INTO usrs.tipo_usuarios VALUES ('2', 'Empleado');
+
+insert into gym.productos values (1,1,'Visita',0);
+insert into gym.precios VALUES(1,CURRENT_DATE,50,NULL);
+
+create view gym.suma_venta as (select SUM(vp.precio_producto),vp.clave_venta from gym.venta_producto as vp group by vp.clave_venta);
