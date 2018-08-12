@@ -121,6 +121,72 @@ namespace ConexionDB{
             }
            
         }
+        public int get_Ultima_Venta()
+        {
+            try
+            {
+                query = "SELECT clave_venta FROM gym.ventas ORDER BY clave_venta DESC LIMIT 1";
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                comando.Connection = conexion;
+                comando.CommandTimeout = 60;
+                comando.Prepare();
+                int clave_venta = (Int32)comando.ExecuteScalar();
+                clave_venta = clave_venta + 1;
+                if (clave_venta > 0)
+                {
+                    query = "INSERT INTO gym.ventas(clave_venta,clave_tipo_venta, clave_socio, fecha_venta) VALUES(" + clave_venta + ",3, NULL, CURRENT_DATE);";
+                    comando = new NpgsqlCommand(query, conexion);
+                    comando.Connection = conexion;
+                    comando.CommandTimeout = 60;
+                    comando.Prepare();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        return clave_venta;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return 0;
+                }
+                    
+            } catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+                return 0;
+            }
+            
+        }
+
+        public void Venta_Producto(int clave_producto, decimal precio, int clave_venta)
+        {
+            try
+            {
+                
+                
+                query = "INSERT INTO gym.venta_producto (clave_producto,clave_venta,precio_producto) VALUES (" + clave_producto + "," + clave_venta + "," + precio + ");";
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                comando.Connection = conexion;
+                comando.CommandTimeout = 60;
+                comando.Prepare();
+                
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    MessageBox.Show("Venta completada");
+                }
+                else
+                {
+                    MessageBox.Show("Error al registrar venta");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+            }
+        }
 
         public void AltaProducto(int tipo, String nombre, int duracion, decimal precio, int clave)
         {

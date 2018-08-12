@@ -20,20 +20,17 @@ SET row_security = off;
 -- TOC entry 6 (class 2615 OID 25191)
 -- Name: gym; Type: SCHEMA; Schema: -; Owner: gabo_adm
 --
-
-
-
-ALTER SCHEMA gym OWNER TO gabo_adm;
-
 --
 -- TOC entry 4 (class 2615 OID 25192)
 -- Name: usrs; Type: SCHEMA; Schema: -; Owner: gabo_adm
 --
-
 CREATE SCHEMA usrs;
-
-
 ALTER SCHEMA usrs OWNER TO gabo_adm;
+create schema gym;
+ALTER SCHEMA gym OWNER TO gabo_adm;
+
+
+
 
 SET search_path = gym, pg_catalog;
 
@@ -280,7 +277,7 @@ drop table if exists venta_producto;
 CREATE TABLE venta_producto (
     clave_producto integer NOT NULL,
     clave_venta integer NOT NULL,
-    precio_producto numeric(5,2)
+    precio_producto decimal(6,2)
 );
 
 
