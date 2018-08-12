@@ -37,31 +37,18 @@ namespace ConexionDB
             {
                 
 
-                if (textBox1.Text == "")
+                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "")
                 {
-                    textBox1.Text = "NULL";
-                }
-                if (textBox2.Text == "")
+                    MessageBox.Show("Ingresa los datos para continuar");
+                } else
                 {
-                    textBox2.Text = "NULL";
+                    ejec.AltaEmpleado(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, comboBox1.Text);
+                    this.Close();
                 }
-                if (textBox3.Text == "")
-                {
-                    textBox3.Text = "NULL";
-                }
-                if (textBox4.Text == "")
-                {
-                    textBox4.Text = "";
-                }
-                if (textBox5.Text == "")
-                {
-                    textBox5.Text = "AUTOMATICA";
-                }
-
-               
-                ejec.AltaEmpleado(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, comboBox1.Text );
-                this.Close();
             }
+               
+               
+                
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
