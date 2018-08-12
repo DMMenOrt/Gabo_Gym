@@ -1,0 +1,5 @@
+1.- Conectarnos a la base de datos por default de postgresql
+2.- Ejecutar el script de Creacion_db_y_usuarios
+3.- Conectarnos a la nueva db con el nuevo usuario (gabo_adm:g@bo_gym)
+4.- Ejecutar el script de configuracion_db_gabo_gym
+5.- trabajar sobre la nueva DB
