@@ -175,3 +175,6 @@ INSERT INTO gym.tipos_ventas values('1','Suscripcion a servicio');
 INSERT INTO gym.tipos_ventas VALUES('2','Pago de servicio');
 INSERT INTO gym.tipos_ventas VALUES('3','Compra de producto');
 INSERT INTO gym.tipos_ventas VALUES('4','Visita');
+
+INSERT INTO usrs.tipo_usuarios VALUES ('1', 'Administrador');
+INSERT INTO usrs.tipo_usuarios VALUES ('2', 'Empleado');
