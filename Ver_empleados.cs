@@ -55,8 +55,16 @@ namespace ConexionDB
 
                 try
                 {
-                    ejec.EliminarEmpleado(id);
-                    button1.PerformClick();
+                    DialogResult result= MessageBox.Show("¿Realmente desea borrar este empleado?", "Borrar", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                      if (result.Equals(DialogResult.OK))
+                      {
+                        ejec.EliminarEmpleado(id);
+                        button1.PerformClick();
+                       }
+                     else
+                     {
+                      }
+                   
                 }
                 catch (Exception ex)
                 {
