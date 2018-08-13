@@ -20,6 +20,19 @@ namespace ConexionDB
         private String where, where3, where4, where5, query;
         private String id,nombre, p_apellido, s_apellido, f_inicio, f_fin;
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (id == null || nombre == null || p_apellido == null || s_apellido == null || f_inicio == null || f_fin == null || id == "" || nombre == "" || p_apellido == "" || s_apellido == "" || f_inicio == "" || f_fin == "")
+            {
+                MessageBox.Show("Selecciona un socio");
+            }
+            else
+            {
+                GestionSuscripcion GestionSuscripcion = new GestionSuscripcion(ejec,Convert.ToInt32(id), f_fin, nombre, p_apellido, s_apellido, f_inicio);
+                GestionSuscripcion.Show();
+            }
+        }
+
         public Ver_Socios(Ejecutor exec)        
         {
             InitializeComponent();

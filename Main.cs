@@ -112,8 +112,8 @@ namespace ConexionDB
                 gestion_ventas.Show();
             }
         }
-        
-        private void agregarEmpleadoToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void agregarEmpleadoToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             if (exec.conexion.State == System.Data.ConnectionState.Closed)
             {
@@ -126,8 +126,8 @@ namespace ConexionDB
                 empleados.Show();
             }
         }
-        
-         private void verEmpleadosToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void verEmpleadosToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             if (exec.conexion.State == System.Data.ConnectionState.Closed)
             {

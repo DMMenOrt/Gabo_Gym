@@ -87,6 +87,24 @@
     <Compile Include="DetallesProdServ.Designer.cs">
       <DependentUpon>DetallesProdServ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Empleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empleados.Designer.cs">
+      <DependentUpon>Empleados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmpleadosDetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmpleadosDetalle.Designer.cs">
+      <DependentUpon>EmpleadosDetalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionSuscripcion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionSuscripcion.Designer.cs">
+      <DependentUpon>GestionSuscripcion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gestor_Ventas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +122,18 @@
     </Compile>
     <Compile Include="Inspector.Designer.cs">
       <DependentUpon>Inspector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TipoProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TipoProductos.Designer.cs">
+      <DependentUpon>TipoProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ver_empleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ver_empleados.Designer.cs">
+      <DependentUpon>Ver_empleados.cs</DependentUpon>
     </Compile>
     <Compile Include="Ver_Socios.cs">
       <SubType>Form</SubType>
@@ -137,6 +167,15 @@
     <EmbeddedResource Include="DetallesProdServ.resx">
       <DependentUpon>DetallesProdServ.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Empleados.resx">
+      <DependentUpon>Empleados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmpleadosDetalle.resx">
+      <DependentUpon>EmpleadosDetalle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionSuscripcion.resx">
+      <DependentUpon>GestionSuscripcion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GestorProductos.resx">
       <DependentUpon>GestorProductos.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,6 +184,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inspector.resx">
       <DependentUpon>Inspector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TipoProductos.resx">
+      <DependentUpon>TipoProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ver_empleados.resx">
+      <DependentUpon>Ver_empleados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ver_Socios.resx">
       <DependentUpon>Ver_Socios.cs</DependentUpon>
@@ -167,6 +212,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -177,6 +223,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

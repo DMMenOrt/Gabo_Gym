@@ -11,17 +11,17 @@ using System.Windows.Forms;
 
 
 namespace ConexionDB{
-    public class Ejecutor  {
-        
+    public class Ejecutor {
+
         public NpgsqlConnection conexion = new NpgsqlConnection();
         private String query;
-        public Ejecutor(){
-            
+        public Ejecutor() {
+
         }
 
         public int Conector(String usr, String pwd)
         {
-            if (usr != "mogodb" || pwd!= "mogodb")
+            if (usr != "mogodb" || pwd != "mogodb")
             {
                 return 0;
             } else
@@ -33,22 +33,22 @@ namespace ConexionDB{
                     if (conexion.State == System.Data.ConnectionState.Open)
                     {
                         return 1;
-                    }else
+                    } else
                     {
                         return 0;
                     }
-                
+
                 } catch (Exception e)
                 {
                     MessageBox.Show("No se pudo realizar la conexión" + e.Message);
                     return 0;
                 }
-                
+
             }
-            
+
         }
         //CURRENT_DATE +  INTERVAL '" + duracion + " months' para calcular la fecha de termino de la suscripcion
-        public void AltaSocio(String nombre,String pApellido, String sApellido,int duracion,String clave,String clave_producto,String precio){
+        public void AltaSocio(String nombre, String pApellido, String sApellido, int duracion, String clave, String clave_producto, String precio) {
 
             try
             {
@@ -60,7 +60,7 @@ namespace ConexionDB{
                 {
                     query = "INSERT INTO gym.socios (clave_socio,nombre,primer_apellido,segundo_apellido, fecha_inicio, fecha_fin) VALUES (" + clave + ",'" + nombre + "', '" + pApellido + "', '" + sApellido + "', CURRENT_DATE, CURRENT_DATE +  INTERVAL '" + duracion + " months');";
                 }
-                
+
                 NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
                 comando.Connection = conexion;
                 comando.CommandTimeout = 60;
@@ -128,11 +128,11 @@ namespace ConexionDB{
                 MessageBox.Show("Error: " + e.Message);
             }
         }
-        
+
         //Eliminar empleado
         public void EliminarEmpleado(String id)
         {
-            query = "DELETE FROM usrs.usuarios WHERE id_usuario = " + id ;
+            query = "DELETE FROM usrs.usuarios WHERE id_usuario = " + id;
 
             try
             {
@@ -159,7 +159,7 @@ namespace ConexionDB{
         //Modificar empleado
         public void ModificaEmpleado(String nombre, String pApellido, String sApellido, String sUsuario, String sTipo, String id)
         {
-            
+            int tipo;
             try
             {
                 if (sTipo == "Administrador")
@@ -191,7 +191,7 @@ namespace ConexionDB{
             }
         }
         //SE EJECUTA JUSTO DESPUES DE INSERTAR AL SOCIO
-        public void Venta_suscripcion(String clave_producto,String precio,String clave_socio)
+        public void Venta_suscripcion(String clave_producto, String precio, String clave_socio)
         {
             try
             {
@@ -231,7 +231,7 @@ namespace ConexionDB{
             {
                 MessageBox.Show("Error: " + e.Message);
             }
-           
+
         }
         public int get_Ultima_Venta()
         {
@@ -257,10 +257,10 @@ namespace ConexionDB{
                 MessageBox.Show("Error: " + e.Message);
                 return 0;
             }
-            
+
         }
 
-        public void Venta_Producto(int[] clave_producto, decimal[] precio, int clave_venta, int[] cantidad,int contador)
+        public void Venta_Producto(int[] clave_producto, decimal[] precio, int clave_venta, int[] cantidad, int contador)
         {
             int recorre = 0;
             try
@@ -274,7 +274,7 @@ namespace ConexionDB{
                 comando.Prepare();
                 if (comando.ExecuteNonQuery() > 0)
                 {
-                    for (recorre = 0;recorre < contador; recorre++)
+                    for (recorre = 0; recorre < contador; recorre++)
                     {
                         if (clave_producto[recorre] == 1)
                         {
@@ -283,7 +283,7 @@ namespace ConexionDB{
                         {
                             query = "INSERT INTO gym.venta_producto (clave_producto,clave_venta,precio_producto,cantidad,clave_tipo_venta) VALUES (" + clave_producto[recorre] + "," + clave_venta + "," + precio[recorre] + "," + cantidad[recorre] + ",3);";
                         }
-                        
+
                         comando = new NpgsqlCommand(query, conexion);
                         comando.Connection = conexion;
                         comando.CommandTimeout = 60;
@@ -308,7 +308,7 @@ namespace ConexionDB{
 
         public void AltaProducto(int tipo, String nombre, int duracion, decimal precio, int clave)
         {
-            
+
             try
             {
                 query = "INSERT INTO gym.productos (clave_tipo_producto,nombre_producto,duracion,clave_producto) VALUES ('" + tipo + "', '" + nombre + "', '" + duracion + "','" + clave + "');";
@@ -325,7 +325,7 @@ namespace ConexionDB{
                     {
                         query = "INSERT INTO gym.precios(clave_producto,fecha_alta,precio,fecha_expiracion) VALUES ('" + clave + "',CURRENT_DATE, '" + precio + "',NULL);";
                     }
-                    
+
                     comando = new NpgsqlCommand(query, conexion);
                     comando.Connection = conexion;
                     comando.CommandTimeout = 60;
@@ -341,7 +341,7 @@ namespace ConexionDB{
                             MessageBox.Show("Servicio registrado exitosamente");
                         }
                     }
-                    
+
                 }
                 else
                 {
@@ -358,7 +358,7 @@ namespace ConexionDB{
         {
             try
             {
-                query = "UPDATE gym.socios SET nombre = '"+nombre+"', primer_apellido = '"+pApellido+"', segundo_apellido = '"+sApellido+"' WHERE clave_socio = "+id;
+                query = "UPDATE gym.socios SET nombre = '" + nombre + "', primer_apellido = '" + pApellido + "', segundo_apellido = '" + sApellido + "' WHERE clave_socio = " + id;
                 NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
                 comando.Connection = conexion;
                 comando.CommandTimeout = 60;
@@ -427,7 +427,7 @@ namespace ConexionDB{
                     {
                         MessageBox.Show("Registro eliminado");
                     }
-                        
+
                 }
                 else
                 {
@@ -439,13 +439,13 @@ namespace ConexionDB{
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-        
+
 
         public void InsertaSimetrias(String id, String val1, String val2, String val3, String val4, String val5, String val6, String val7, String val8, String val9,
             String val10, String val11, String val12, String val13, String val14, String val15, String val16, String val17, String val18, String val19, String val20,
             String val21, String val22, String val23)
         {
-            
+
             try
             {
                 if (val1 == "") { val1 = "NULL"; }
@@ -492,6 +492,50 @@ namespace ConexionDB{
                 MessageBox.Show("Error: " + ex.Message);
             }
 
+        }
+
+        public void PagoSuscripcion(int clave_socio, int clave_producto, decimal precio, int duracion)
+        {
+            try
+            {
+                int clave_venta = get_Ultima_Venta();
+                query = "INSERT INTO gym.ventas(clave_venta, clave_socio, fecha_venta) VALUES(" + clave_venta + ", " + clave_socio + ", CURRENT_DATE);";
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion)
+                {
+                    Connection = conexion,
+                    CommandTimeout = 60
+                };
+                comando.Prepare();
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    query = "INSERT INTO gym.venta_producto (clave_producto,clave_venta,precio_producto,cantidad,clave_tipo_venta) VALUES (" + clave_producto + "," + clave_venta + "," + precio + ",1,2);";
+                    comando = new NpgsqlCommand(query, conexion);
+                    comando.Connection = conexion;
+                    comando.CommandTimeout = 60;
+                    comando.Prepare();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        query = "UPDATE gym.socios SET fecha_fin = (fecha_fin +  INTERVAL '" + duracion + " months');";
+                        comando = new NpgsqlCommand(query, conexion);
+                        comando.Connection = conexion;
+                        comando.CommandTimeout = 60;
+                        comando.Prepare();
+                        if (comando.ExecuteNonQuery() > 0)
+                        {
+                                MessageBox.Show("Renovación realizada");
+                            }
+                        else
+                        {
+                            MessageBox.Show("Error al registrar socio");
+                        }
+                    }
+                }
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+            }
         }
     }
 }

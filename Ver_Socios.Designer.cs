@@ -41,6 +41,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,7 +124,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(471, 465);
+            this.button1.Location = new System.Drawing.Point(342, 465);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 40);
             this.button1.TabIndex = 13;
@@ -133,7 +134,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(175, 465);
+            this.button4.Location = new System.Drawing.Point(39, 465);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(99, 40);
             this.button4.TabIndex = 14;
@@ -159,11 +160,22 @@
             this.label4.TabIndex = 16;
             this.label4.Text = "Filtro";
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(606, 465);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(99, 40);
+            this.button5.TabIndex = 17;
+            this.button5.Text = "Renovar suscripción";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Ver_Socios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(758, 517);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button4);
@@ -201,5 +213,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button5;
     }
 }
