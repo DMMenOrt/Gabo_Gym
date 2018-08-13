@@ -179,3 +179,14 @@ INSERT INTO gym.tipos_ventas VALUES('4','Visita');
 
 INSERT INTO usrs.tipo_usuarios VALUES ('1', 'Administrador');
 INSERT INTO usrs.tipo_usuarios VALUES ('2', 'Empleado');
+
+-- DROP VIEW gym.suma_venta;
+
+CREATE OR REPLACE VIEW gym.suma_venta AS
+ SELECT sum(vp.precio_producto) AS sum,
+    vp.clave_venta
+   FROM gym.venta_producto vp
+  GROUP BY vp.clave_venta;
+
+ALTER TABLE gym.suma_venta
+    OWNER TO postgres;
