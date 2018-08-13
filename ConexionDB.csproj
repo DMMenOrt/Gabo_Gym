@@ -123,6 +123,12 @@
     <Compile Include="Inspector.Designer.cs">
       <DependentUpon>Inspector.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inspector_ventas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inspector_ventas.Designer.cs">
+      <DependentUpon>Inspector_ventas.cs</DependentUpon>
+    </Compile>
     <Compile Include="TipoProductos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inspector.resx">
       <DependentUpon>Inspector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inspector_ventas.resx">
+      <DependentUpon>Inspector_ventas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TipoProductos.resx">
       <DependentUpon>TipoProductos.cs</DependentUpon>

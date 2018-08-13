@@ -19,7 +19,7 @@ namespace ConexionDB
         private NpgsqlCommand comando;
         private String query;
         private String clave_venta, clave_tipo_venta, tipo_venta, clave_socio, fecha_venta;
-        private String clave_producto, precio;
+        private String clave_producto, precio, importe;
         private int[] a_carrito_prod;
         private decimal[] a_carrito_prec;
         private int[] a_cantidad;
@@ -117,6 +117,13 @@ namespace ConexionDB
         {
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Inspector_ventas inspector_Ventas = new Inspector_ventas(exec, clave_venta, clave_socio, fecha_venta,importe);
+            inspector_Ventas.Show();
+        }
+
         private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -143,14 +150,11 @@ namespace ConexionDB
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            /*
+        {            
             clave_venta = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            clave_tipo_venta = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            tipo_venta = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-            clave_socio = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-            fecha_venta = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
-            */
+            clave_socio = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            fecha_venta = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            importe = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
         }
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {

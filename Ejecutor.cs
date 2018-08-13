@@ -537,5 +537,87 @@ namespace ConexionDB{
                 MessageBox.Show("Error: " + e.Message);
             }
         }
+
+        public String get_Nombre(String id)
+        {
+            String nombre;
+            try
+            {
+                query = "SELECT nombre FROM gym.socios WHERE clave_socio = "+id;
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                comando.Connection = conexion;
+                comando.CommandTimeout = 60;
+                comando.Prepare();
+                try
+                {
+                    nombre = (String)comando.ExecuteScalar();
+                }
+                catch
+                {
+                    nombre = "";
+                }
+                return nombre;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+                return "";
+            }
+        }
+
+        public String get_pApellido(String id)
+        {
+            String apellido;
+            try
+            {
+                query = "SELECT primer_apellido FROM gym.socios WHERE clave_socio = " + id;
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                comando.Connection = conexion;
+                comando.CommandTimeout = 60;
+                comando.Prepare();
+                try
+                {
+                    apellido = (String)comando.ExecuteScalar();
+                }
+                catch
+                {
+                    apellido = "";
+                }
+                return apellido;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+                return "";
+            }
+        }
+        public String get_sApellido(String id)
+        {
+            String apellido;
+            try
+            {
+                query = "SELECT segundo_apellido FROM gym.socios WHERE clave_socio = " + id;
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                comando.Connection = conexion;
+                comando.CommandTimeout = 60;
+                comando.Prepare();
+                try
+                {
+                    apellido = (String)comando.ExecuteScalar();
+                }
+                catch
+                {
+                    apellido = "";
+                }
+                return apellido;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+                return "";
+            }
+        }
+
+        
     }
 }

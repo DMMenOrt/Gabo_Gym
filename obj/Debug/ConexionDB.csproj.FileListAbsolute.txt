@@ -144,3 +144,4 @@ C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\Conex
 C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\ConexionDB.TipoProductos.resources
 C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\ConexionDB.Ver_empleados.resources
 C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\ConexionDB.GestionSuscripcion.resources
+C:\Users\MogoPC\Documents\Proyectos\Visual\ConexionDB\ConexionDB\obj\Debug\ConexionDB.Inspector_ventas.resources
