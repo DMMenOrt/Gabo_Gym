@@ -52,7 +52,7 @@ namespace ConexionDB{
 
             try
             {
-                if (clave == "AUTOMATICA")
+                if (clave == "")
                 {
                     query = "INSERT INTO gym.socios (nombre,primer_apellido,segundo_apellido, fecha_inicio, fecha_fin) VALUES ('" + nombre + "', '" + pApellido + "', '" + sApellido + "', CURRENT_DATE, CURRENT_DATE +  INTERVAL '" + duracion + " months');";
                 }
@@ -195,20 +195,20 @@ namespace ConexionDB{
         {
             try
             {
-                query = "INSERT INTO gym.ventas(clave_tipo_venta, clave_socio, fecha_venta) VALUES(1, '" + clave_socio + "', CURRENT_DATE);";
+                query = "INSERT INTO gym.ventas(clave_socio, fecha_venta) VALUES('" + clave_socio + "', CURRENT_DATE);";
                 NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
                 comando.Connection = conexion;
                 comando.CommandTimeout = 60;
                 comando.Prepare();
                 if (comando.ExecuteNonQuery() > 0)
                 {
-                    query = "SELECT clave_venta FROM gym.ventas WHERE 1=1 AND clave_tipo_venta = 1 AND clave_socio = '" + clave_socio + "' AND fecha_venta = CURRENT_DATE";
+                    query = "SELECT clave_venta FROM gym.ventas WHERE 1=1 AND clave_socio = '" + clave_socio + "' AND fecha_venta = CURRENT_DATE";
                     comando = new NpgsqlCommand(query, conexion);
                     comando.Connection = conexion;
                     comando.CommandTimeout = 60;
                     comando.Prepare();
                     int clave_venta = (Int32)comando.ExecuteScalar();
-                    query = "INSERT INTO gym.venta_producto (clave_producto,clave_venta,precio_producto) VALUES ('" + clave_producto + "','" + clave_venta + "','" + precio + "');";
+                    query = "INSERT INTO gym.venta_producto (clave_producto,clave_venta,precio_producto,cantidad,clave_tipo_venta) VALUES ('" + clave_producto + "','" + clave_venta + "','" + precio + "',DEFAULT,1);";
                     comando = new NpgsqlCommand(query, conexion);
                     comando.Connection = conexion;
                     comando.CommandTimeout = 60;
@@ -235,6 +235,7 @@ namespace ConexionDB{
         }
         public int get_Ultima_Venta()
         {
+            int clave_venta;
             try
             {
                 query = "SELECT clave_venta FROM gym.ventas ORDER BY clave_venta DESC LIMIT 1";
@@ -242,29 +243,15 @@ namespace ConexionDB{
                 comando.Connection = conexion;
                 comando.CommandTimeout = 60;
                 comando.Prepare();
-                int clave_venta = (Int32)comando.ExecuteScalar();
-                clave_venta = clave_venta + 1;
-                if (clave_venta > 0)
+                try
                 {
-                    query = "INSERT INTO gym.ventas(clave_venta,clave_tipo_venta, clave_socio, fecha_venta) VALUES(" + clave_venta + ",3, NULL, CURRENT_DATE);";
-                    comando = new NpgsqlCommand(query, conexion);
-                    comando.Connection = conexion;
-                    comando.CommandTimeout = 60;
-                    comando.Prepare();
-                    if (comando.ExecuteNonQuery() > 0)
-                    {
-                        return clave_venta;
-                    }
-                    else
-                    {
-                        return 0;
-                    }
+                    clave_venta = (Int32)comando.ExecuteScalar();
                 }
-                else
+                catch
                 {
-                    return 0;
+                    clave_venta = 0;
                 }
-                    
+                return clave_venta;
             } catch (Exception e)
             {
                 MessageBox.Show("Error: " + e.Message);
@@ -273,25 +260,44 @@ namespace ConexionDB{
             
         }
 
-        public void Venta_Producto(int clave_producto, decimal precio, int clave_venta)
+        public void Venta_Producto(int[] clave_producto, decimal[] precio, int clave_venta, int[] cantidad,int contador)
         {
+            int recorre = 0;
             try
             {
-                
-                
-                query = "INSERT INTO gym.venta_producto (clave_producto,clave_venta,precio_producto) VALUES (" + clave_producto + "," + clave_venta + "," + precio + ");";
-                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
-                comando.Connection = conexion;
-                comando.CommandTimeout = 60;
+                query = "INSERT INTO gym.ventas(clave_venta, clave_socio, fecha_venta) VALUES(" + clave_venta + ", NULL, CURRENT_DATE);";
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion)
+                {
+                    Connection = conexion,
+                    CommandTimeout = 60
+                };
                 comando.Prepare();
-                
                 if (comando.ExecuteNonQuery() > 0)
                 {
-                    MessageBox.Show("Venta completada");
-                }
-                else
-                {
-                    MessageBox.Show("Error al registrar venta");
+                    for (recorre = 0;recorre < contador; recorre++)
+                    {
+                        if (clave_producto[recorre] == 1)
+                        {
+                            query = "INSERT INTO gym.venta_producto (clave_producto,clave_venta,precio_producto,cantidad,clave_tipo_venta) VALUES (" + clave_producto[recorre] + "," + clave_venta + "," + precio[recorre] + "," + cantidad[recorre] + ",4);";
+                        } else
+                        {
+                            query = "INSERT INTO gym.venta_producto (clave_producto,clave_venta,precio_producto,cantidad,clave_tipo_venta) VALUES (" + clave_producto[recorre] + "," + clave_venta + "," + precio[recorre] + "," + cantidad[recorre] + ",3);";
+                        }
+                        
+                        comando = new NpgsqlCommand(query, conexion);
+                        comando.Connection = conexion;
+                        comando.CommandTimeout = 60;
+                        comando.Prepare();
+
+                        if (comando.ExecuteNonQuery() > 0)
+                        {
+                            MessageBox.Show("Venta completada");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al registrar venta");
+                        }
+                    }
                 }
             }
             catch (Exception e)

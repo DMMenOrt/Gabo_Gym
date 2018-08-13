@@ -57,7 +57,7 @@ namespace ConexionDB
                 }
                 if (textBox4.Text == "")
                 {
-                    textBox4.Text = "AUTOMATICA";
+                    textBox4.Text = "";
                 }
                 ejec.AltaSocio(textBox1.Text, textBox2.Text, textBox3.Text,duracion,textBox4.Text, clave_producto, precio);
                 this.Close();
@@ -70,6 +70,11 @@ namespace ConexionDB
             textBox1.Text = ""; textBox2.Text = ""; textBox3.Text = "";
             MessageBox.Show("Operación cancelada");
             this.Close();
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)

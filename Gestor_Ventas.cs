@@ -17,27 +17,28 @@ namespace ConexionDB
         private Ejecutor exec;
         private NpgsqlDataAdapter sda;
         private NpgsqlCommand comando;
-        private String query, where, where1;
+        private String query;
         private String clave_venta, clave_tipo_venta, tipo_venta, clave_socio, fecha_venta;
         private String clave_producto, precio;
         private int[] a_carrito_prod;
         private decimal[] a_carrito_prec;
+        private int[] a_cantidad;
         private int contador;
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
             int cantidad;
-            double precio;
+            decimal precio;
             try
             {
                 if (Convert.ToInt32(textBox3.Text) <= 0)
                 {
-                    textBox3.Text = "0";
+                    textBox3.Text = "1";
                 }
                 if (Convert.ToInt32(textBox3.Text) >= 1)
                 {
                     cantidad = Convert.ToInt32(textBox3.Text);
-                    precio = Convert.ToDouble(this.precio);
+                    precio = Convert.ToDecimal(this.precio);
                     precio = precio * cantidad;
                     textBox2.Text = precio.ToString();
                 }
@@ -53,19 +54,14 @@ namespace ConexionDB
             InitializeComponent();
             exec = ejec;
             sda = new NpgsqlDataAdapter();
-            comboBox1.Items.Add("Todas");
-            comboBox1.Items.Add("Suscripcion a servicio");
-            comboBox1.Items.Add("Pago de servicio");
-            comboBox1.Items.Add("Compra de producto");
-            comboBox1.Items.Add("Visita");
-            comboBox1.SelectedItem = "Todas";
             Catalogo_Productos();
             textBox2.Enabled = false;
-            textBox3.Text = "0";
+            textBox3.Text = "1";
             contador = 0;
             a_carrito_prod = new int[40];
             a_carrito_prec = new decimal[40];
-    }
+            a_cantidad = new int[40];
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -73,6 +69,7 @@ namespace ConexionDB
             {
                 a_carrito_prod[contador] = Convert.ToInt32(clave_producto);
                 a_carrito_prec[contador] = Convert.ToDecimal(textBox2.Text);
+                a_cantidad[contador] = Convert.ToInt32(textBox3.Text);
                 contador++;
                 MessageBox.Show("Producto agregado al carrito");
             } catch (Exception ex)
@@ -86,46 +83,34 @@ namespace ConexionDB
         {
             try
             {
-                int contador = 0;
                 int clave_venta = exec.get_Ultima_Venta();
-                if (clave_venta > 0)
+                clave_venta++;
+                if (clave_venta >= 0)
                 {
-                    for (contador = 0; contador <= this.contador; contador++)
-                    {
-                        exec.Venta_Producto(a_carrito_prod[contador], a_carrito_prec[contador], clave_venta);
-                    }
+                    exec.Venta_Producto(a_carrito_prod, a_carrito_prec, clave_venta, a_cantidad,contador);
                 }
-                this.contador = 0;
+                contador = 0;
             } catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
-                this.contador = 0;
+                contador = 0;
             }
             
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem.ToString() == "Todas")
-            {
-                where = "";
-            }
-            if (comboBox1.SelectedItem.ToString() == "Suscripcion a servicio")
-            {
-                where = "AND v.clave_tipo_venta = 1 ";
-            }
-            if (comboBox1.SelectedItem.ToString() == "Pago de servicio")
-            {
-                where = "AND v.clave_tipo_venta = 2 ";
-            }
-            if (comboBox1.SelectedItem.ToString() == "Compra de producto")
-            {
-                where = "AND v.clave_tipo_venta = 3 ";
-            }
-            if (comboBox1.SelectedItem.ToString() == "Visita")
-            {
-                where = "AND v.clave_tipo_venta = 4 ";
-            }
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void Gestor_Ventas_Load(object sender, EventArgs e)
@@ -139,17 +124,10 @@ namespace ConexionDB
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "")
-            {
-                where1 = "";
-            }
-            else
-            {
-                where1 = "AND s.nombre ilike '%" + textBox1.Text + "%' ";
-            }
+            
             try
             {
-                query = "select v.clave_venta,tv.clave_tipo_venta,tv.tipo_venta,s.clave_socio,s.nombre,s.primer_apellido,s.segundo_apellido,fecha_venta from gym.ventas as v join gym.socios as s on v.clave_socio = s.clave_socio join gym.tipos_ventas as tv on v.clave_tipo_venta = tv.clave_tipo_venta WHERE 1 = 1 "+where+where1+ "";
+                query = "select sm.clave_venta,clave_socio,fecha_venta,sum as total from gym.ventas as v join gym.suma_venta as sm on v.clave_venta = sm.clave_venta WHERE 1 = 1 ORDER BY v.fecha_venta DESC";
                 comando = new NpgsqlCommand(query, exec.conexion);
                 sda.SelectCommand = comando;
                 DataTable dt = new DataTable();
@@ -166,17 +144,19 @@ namespace ConexionDB
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            /*
             clave_venta = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
             clave_tipo_venta = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             tipo_venta = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
             clave_socio = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
             fecha_venta = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
+            */
         }
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             clave_producto = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
             precio = dataGridView2.Rows[e.RowIndex].Cells[3].Value.ToString();
-            textBox3.Text = "0";
+            textBox3.Text = "1";
         }
 
         private void Catalogo_Productos()
