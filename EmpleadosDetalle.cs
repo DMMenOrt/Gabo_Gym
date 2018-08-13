@@ -79,13 +79,21 @@ namespace ConexionDB
 
         private void button2_Click(object sender, EventArgs e)
         {
-            nombre = textBox2.Text;
-            p_apellido = textBox3.Text;
-            s_apellido = textBox4.Text;
-            s_usuario= textBox5.Text;
-            s_tipo = textBox6.Text;
+            DialogResult result = MessageBox.Show("¿Desea modifiar los datos del empleado?", "Actualizar empleado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result.Equals(DialogResult.OK))
+            {
+                nombre = textBox2.Text;
+                p_apellido = textBox3.Text;
+                s_apellido = textBox4.Text;
+                s_usuario = textBox5.Text;
+                s_tipo = textBox6.Text;
 
-            ejec.ModificaEmpleado(nombre, p_apellido, s_apellido, s_usuario , s_tipo,id);
+                ejec.ModificaEmpleado(nombre, p_apellido, s_apellido, s_usuario, s_tipo, id);
+            }
+            else
+            {
+            }
+           
         }
     }
 }
