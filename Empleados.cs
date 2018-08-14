@@ -35,12 +35,13 @@ namespace ConexionDB
             }
             else
             {
-                
 
-                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "")
+
+                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "")
                 {
-                    MessageBox.Show("Ingresa los datos para continuar");
-                } else
+                    MessageBox.Show("Necesitas ingresar todos los datos para regisrar un empleado", "Registrar socio", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                else
                 {
                     ejec.AltaEmpleado(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, comboBox1.Text);
                     this.Close();
@@ -51,9 +52,11 @@ namespace ConexionDB
                 
         }
 
-        private void textBox5_TextChanged(object sender, EventArgs e)
+        private void textBox5_Text_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            e.Handled = !(Char.IsNumber(e.KeyChar) || e.KeyChar == 8);
         }
+
+       
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ConexionDB
+﻿using System.Windows.Forms;
+
+namespace ConexionDB
 {
     partial class inscripcion_socio
     {
@@ -70,9 +72,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(15, 75);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.Size = new System.Drawing.Size(84, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Primer apellido";
+            this.label2.Text = "Apellido Paterno";
             // 
             // textBox3
             // 
@@ -86,9 +88,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(15, 114);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.Size = new System.Drawing.Size(86, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Segundo apellido";
+            this.label3.Text = "Apellido Materno";
             // 
             // button1
             // 
@@ -126,6 +128,7 @@
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 9;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_Text_KeyPress);
             // 
             // label4
             // 
@@ -134,7 +137,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Clave numerica";
+            this.label4.Text = "Clave numérica";
             // 
             // inscripcion_socio
             // 

@@ -39,7 +39,11 @@ namespace ConexionDB
 
         private void button1_Click(object sender, EventArgs e)
         {
-            exec.PagoSuscripcion(clave_socio, clave_producto, costo,duracion);
+            DialogResult result = MessageBox.Show("¿Desea confirmar el pago de la suscripción?", "Confirmar suscripción", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result.Equals(DialogResult.OK))
+            {
+                exec.PagoSuscripcion(clave_socio, clave_producto, costo, duracion);
+            }
         }
 
         public void Completar_campos()

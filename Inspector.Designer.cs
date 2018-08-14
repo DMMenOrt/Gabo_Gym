@@ -105,18 +105,18 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(244, 63);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 13);
+            this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Primer Apellido";
+            this.label3.Text = "Apellido Paterno";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(399, 63);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 13);
+            this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Segundo Apellido";
+            this.label4.Text = "Apellido Materno";
             // 
             // textBox5
             // 

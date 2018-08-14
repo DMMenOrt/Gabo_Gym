@@ -17,6 +17,28 @@ namespace ConexionDB
         Ejecutor ejec;
         private String clave, tipo_prod, nombre, dur, prec, f_expiracion, f_alta;
 
+        private void textBox5__Text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // checks to make sure only 1 decimal is allowed
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
+        }
+
+        private void textBox4_Text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !(Char.IsNumber(e.KeyChar) || e.KeyChar == 8);
+        }
+
 
         //Activar modificación
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -49,57 +71,60 @@ namespace ConexionDB
         {
             try
             {
-                
-                if (textBox5.Text == "")
+                DialogResult result = MessageBox.Show("¿Desea modifiar los datos de la clave o servicio?", "Actualizar clave servicio", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (result.Equals(DialogResult.OK))
                 {
-                    textBox5.Text = prec;
-                }
-                if (textBox2.Text == "")
-                {
-                    textBox2.Text = nombre;
-                }
+                    if (textBox5.Text == "")
+                    {
+                        textBox5.Text = prec;
+                    }
+                    if (textBox2.Text == "")
+                    {
+                        textBox2.Text = nombre;
+                    }
 
-                String query = "UPDATE gym.precios SET fecha_expiracion = CURRENT_DATE WHERE clave_producto = " + clave + " AND fecha_expiracion IS NULL";
-                NpgsqlCommand comando = new NpgsqlCommand(query, ejec.conexion)
-                {
-                    CommandTimeout = 60
-                };
-                comando.Prepare();
-                if (comando.ExecuteNonQuery() > 0)
-                {
-                     query = "INSERT INTO gym.precios (clave_producto,fecha_alta,precio,fecha_expiracion) VALUES ('" + textBox1.Text + "',CURRENT_DATE,'" + textBox5.Text + "',NULL)";
-                     comando = new NpgsqlCommand(query, ejec.conexion)
+                    String query = "UPDATE gym.precios SET fecha_expiracion = CURRENT_DATE WHERE clave_producto = " + clave + " AND fecha_expiracion IS NULL";
+                    NpgsqlCommand comando = new NpgsqlCommand(query, ejec.conexion)
                     {
                         CommandTimeout = 60
                     };
                     comando.Prepare();
-                    
                     if (comando.ExecuteNonQuery() > 0)
                     {
-                        query = "UPDATE gym.productos SET nombre_producto = '"+textBox2.Text+"'  WHERE clave_producto = " + clave +"";
+                        query = "INSERT INTO gym.precios (clave_producto,fecha_alta,precio,fecha_expiracion) VALUES ('" + textBox1.Text + "',CURRENT_DATE,'" + textBox5.Text + "',NULL)";
                         comando = new NpgsqlCommand(query, ejec.conexion)
                         {
                             CommandTimeout = 60
                         };
                         comando.Prepare();
+
                         if (comando.ExecuteNonQuery() > 0)
                         {
-                            MessageBox.Show("Detalles del producto actualizados");
+                            query = "UPDATE gym.productos SET nombre_producto = '" + textBox2.Text + "'  WHERE clave_producto = " + clave + "";
+                            comando = new NpgsqlCommand(query, ejec.conexion)
+                            {
+                                CommandTimeout = 60
+                            };
+                            comando.Prepare();
+                            if (comando.ExecuteNonQuery() > 0)
+                            {
+                                MessageBox.Show("Detalles del producto actualizados");
+                            }
                         }
+
                     }
-                        
+                    else
+                    {
+                        textBox1.Text = clave;
+                        textBox2.Text = nombre;
+                        textBox3.Text = tipo_prod;
+                        textBox4.Text = dur;
+                        textBox5.Text = prec;
+                        textBox6.Text = f_alta;
+                        textBox7.Text = f_expiracion;
+                    }
+                    Cargar_historico();
                 }
-                else
-                {
-                    textBox1.Text = clave;
-                    textBox2.Text = nombre;
-                    textBox3.Text = tipo_prod;
-                    textBox4.Text = dur;
-                    textBox5.Text = prec;
-                    textBox6.Text = f_alta;
-                    textBox7.Text = f_expiracion;
-                }
-                Cargar_historico();
             }
             catch (Exception ex)
             {

@@ -39,7 +39,7 @@ namespace ConexionDB
                     ejec.Conector(textBox1.Text, textBox2.Text);
                     if (ejec.conexion.State == System.Data.ConnectionState.Open)
                     {
-                        MessageBox.Show("Conexión exitosa");
+                        MessageBox.Show("Bienvenido a GABO GYM");
                         this.Close();
                     } else
                     {

@@ -21,7 +21,7 @@ namespace ConexionDB{
 
         public int Conector(String usr, String pwd)
         {
-            if (usr != "mogodb" || pwd != "mogodb")
+            if (usr != "gabo_gym" || pwd != "g@bo_adm")
             {
                 return 0;
             } else
@@ -40,7 +40,7 @@ namespace ConexionDB{
 
                 } catch (Exception e)
                 {
-                    MessageBox.Show("No se pudo realizar la conexión" + e.Message);
+                    MessageBox.Show("No se pudo realizar la conexión" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return 0;
                 }
 
@@ -70,11 +70,11 @@ namespace ConexionDB{
                     Venta_suscripcion(clave_producto, precio, clave);
                 } else
                 {
-                    MessageBox.Show("Error al registrar socio");
+                    MessageBox.Show("Error al registrar socio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             } catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //Se inserta empleado
@@ -115,11 +115,11 @@ namespace ConexionDB{
 
                     if (comando.ExecuteNonQuery() > 0)
                     {
-                        MessageBox.Show("Empleado registrado exitosamente");
+                        MessageBox.Show("Empleado registrado exitosamente", "Registrar empleado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Error al registrar empleado");
+                        MessageBox.Show("Error al registrar empleado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -144,16 +144,16 @@ namespace ConexionDB{
                 comando.Prepare();
                 if (comando.ExecuteNonQuery() > 0)
                 {
-                    MessageBox.Show("El empleado ha sido eliminado");
+                    MessageBox.Show("El empleado ha sido eliminado", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Error al eliminar empleado");
+                    MessageBox.Show("Error al eliminar empleado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //Modificar empleado
@@ -178,16 +178,16 @@ namespace ConexionDB{
                 comando.Prepare();
                 if (comando.ExecuteNonQuery() > 0)
                 {
-                    MessageBox.Show("Se ha actualizado el registro de este empleado");
+                    MessageBox.Show("Se ha actualizado el registro de este empleado", "Actualizar datos", MessageBoxButtons.OK,  MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Error al actualizar empleado");
+                    MessageBox.Show("Error al actualizar empleado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //SE EJECUTA JUSTO DESPUES DE INSERTAR AL SOCIO
@@ -215,21 +215,21 @@ namespace ConexionDB{
                     comando.Prepare();
                     if (comando.ExecuteNonQuery() > 0)
                     {
-                        MessageBox.Show("Proceso de inscripcion completado");
+                        MessageBox.Show("Proceso de inscripción completado", "Inscripción", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Error al registrar socio");
+                        MessageBox.Show("Error al registrar socio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Error al registrar socio");
+                    MessageBox.Show("Error al registrar socio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -291,18 +291,18 @@ namespace ConexionDB{
 
                         if (comando.ExecuteNonQuery() > 0)
                         {
-                            MessageBox.Show("Venta completada");
+                            MessageBox.Show("Venta completada", "Venta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Error al registrar venta");
+                            MessageBox.Show("Error al registrar venta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -334,23 +334,23 @@ namespace ConexionDB{
                     {
                         if (tipo == 1)
                         {
-                            MessageBox.Show("Producto registrado exitosamente");
+                            MessageBox.Show("Producto registrado exitosamente", "Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         if (tipo == 2)
                         {
-                            MessageBox.Show("Servicio registrado exitosamente");
+                            MessageBox.Show("Servicio registrado exitosamente", "Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
 
                 }
                 else
                 {
-                    MessageBox.Show("Error al registrar");
+                    MessageBox.Show("Error al registrar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -365,16 +365,16 @@ namespace ConexionDB{
                 comando.Prepare();
                 if (comando.ExecuteNonQuery() > 0)
                 {
-                    MessageBox.Show("Se ha actualizado el registro de este socio");
+                    MessageBox.Show("Se ha actualizado el registro de este socio", "Actualizar datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Error al actualizar socio");
+                    MessageBox.Show("Error al actualizar socio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -392,16 +392,16 @@ namespace ConexionDB{
                 comando.Prepare();
                 if (comando.ExecuteNonQuery() > 0)
                 {
-                    MessageBox.Show("Se ha eliminado");
+                    MessageBox.Show("Se ha eliminado", "Eliminar datos del socio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Error al eliminar socio");
+                    MessageBox.Show("Error al eliminar socio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -425,18 +425,18 @@ namespace ConexionDB{
                     comando.Prepare();
                     if (comando.ExecuteNonQuery() > 0)
                     {
-                        MessageBox.Show("Registro eliminado");
+                        MessageBox.Show("Producto eliminado", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                 }
                 else
                 {
-                    MessageBox.Show("Error al eliminar");
+                    MessageBox.Show("Error al eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -480,16 +480,16 @@ namespace ConexionDB{
                 comando.Prepare();
                 if (comando.ExecuteNonQuery() > 0)
                 {
-                    MessageBox.Show("Simetria registrada exitosamente");
+                    MessageBox.Show("Simetrias registradas exitosamente", "Registrar simetrias", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Error al registrar simetria");
+                    MessageBox.Show("Error al registrar simetria", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -522,11 +522,11 @@ namespace ConexionDB{
                         comando.Prepare();
                         if (comando.ExecuteNonQuery() > 0)
                         {
-                                MessageBox.Show("Renovación realizada");
+                                MessageBox.Show("Renovación realizada", "Renovación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         else
                         {
-                            MessageBox.Show("Error al registrar socio");
+                            MessageBox.Show("Error al registrar socio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -534,7 +534,7 @@ namespace ConexionDB{
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -560,7 +560,7 @@ namespace ConexionDB{
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return "";
             }
         }
@@ -587,7 +587,7 @@ namespace ConexionDB{
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return "";
             }
         }
@@ -613,7 +613,7 @@ namespace ConexionDB{
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return "";
             }
         }

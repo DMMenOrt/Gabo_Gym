@@ -31,6 +31,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -40,7 +41,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -80,6 +80,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Vista de ventas";
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(432, 16);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(120, 40);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "Ver detalles de la venta";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label7);
@@ -104,7 +114,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(151, 13);
             this.label7.TabIndex = 12;
-            this.label7.Text = "Catalogo de productos activos";
+            this.label7.Text = "Catálogo de productos activos";
             // 
             // dataGridView2
             // 
@@ -167,16 +177,6 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(70, 20);
             this.textBox2.TabIndex = 1;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(432, 16);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(120, 40);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Ver detalles de la venta";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Gestor_Ventas
             // 

@@ -55,9 +55,45 @@ namespace ConexionDB
             }
             else
             {
-                DetallesProdServ inspeccionar_prod = new DetallesProdServ(ejec, clave_producto, clave_tipo_prod, nombre_producto, duracion, precio, fecha_expiracion,fecha_alta);
-                inspeccionar_prod.Show();
+                DialogResult result = MessageBox.Show("¿Desea modifiar los datos del producto o servicio", "Actualizar producto o servicio", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (result.Equals(DialogResult.OK))
+                {
+                    DetallesProdServ inspeccionar_prod = new DetallesProdServ(ejec, clave_producto, clave_tipo_prod, nombre_producto, duracion, precio, fecha_expiracion, fecha_alta);
+                    inspeccionar_prod.Show();
+                }
             }
+        }
+
+        private void textBox3_Text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !(Char.IsNumber(e.KeyChar) || e.KeyChar == 8);
+        }
+
+        private void textBox4_Text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !(Char.IsNumber(e.KeyChar) || e.KeyChar == 8);
+        }
+
+        private void textBox1_Text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // checks to make sure only 1 decimal is allowed
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -180,8 +216,12 @@ namespace ConexionDB
 
                 try
                 {
-                    ejec.EliminarProducto(clave_producto);
-                    button3.PerformClick();
+                    DialogResult result = MessageBox.Show("¿Desea eliminar el produto/servicio?", "Eliminar producto/servicio", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if (result.Equals(DialogResult.OK))
+                    {
+                        ejec.EliminarProducto(clave_producto);
+                        button3.PerformClick();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -238,7 +278,7 @@ namespace ConexionDB
                 ejec.AltaProducto(tipo_producto, textBox2.Text, duracion, precio, clave);
             } catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }

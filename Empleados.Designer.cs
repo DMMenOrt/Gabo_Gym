@@ -116,6 +116,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(142, 20);
             this.textBox4.TabIndex = 8;
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_Text_KeyPress);
             // 
             // button1
             // 
@@ -151,7 +152,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(122, 20);
             this.textBox5.TabIndex = 12;
-            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_Text_KeyPress);
             // 
             // comboBox1
             // 
@@ -164,7 +165,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(29, 197);
+            this.label7.Location = new System.Drawing.Point(23, 197);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(80, 13);
             this.label7.TabIndex = 14;

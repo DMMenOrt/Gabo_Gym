@@ -67,11 +67,15 @@ namespace ConexionDB
         {
             try
             {
-                a_carrito_prod[contador] = Convert.ToInt32(clave_producto);
-                a_carrito_prec[contador] = Convert.ToDecimal(textBox2.Text);
-                a_cantidad[contador] = Convert.ToInt32(textBox3.Text);
-                contador++;
-                MessageBox.Show("Producto agregado al carrito");
+                DialogResult result = MessageBox.Show("¿Desea agregar este producto?", "Agregar producto", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (result.Equals(DialogResult.OK))
+                {
+                    a_carrito_prod[contador] = Convert.ToInt32(clave_producto);
+                    a_carrito_prec[contador] = Convert.ToDecimal(textBox2.Text);
+                    a_cantidad[contador] = Convert.ToInt32(textBox3.Text);
+                    contador++;
+                    MessageBox.Show("Producto agregado al carrito");
+                }
             } catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
@@ -83,13 +87,17 @@ namespace ConexionDB
         {
             try
             {
-                int clave_venta = exec.get_Ultima_Venta();
-                clave_venta++;
-                if (clave_venta >= 0)
+                DialogResult result = MessageBox.Show("¿Desea registrar la venta?", "Registrar venta", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (result.Equals(DialogResult.OK))
                 {
-                    exec.Venta_Producto(a_carrito_prod, a_carrito_prec, clave_venta, a_cantidad,contador);
+                    int clave_venta = exec.get_Ultima_Venta();
+                    clave_venta++;
+                    if (clave_venta >= 0)
+                    {
+                        exec.Venta_Producto(a_carrito_prod, a_carrito_prec, clave_venta, a_cantidad, contador);
+                    }
+                    contador = 0;
                 }
-                contador = 0;
             } catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);

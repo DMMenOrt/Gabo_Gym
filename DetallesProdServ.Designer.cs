@@ -77,13 +77,15 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 3;
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_Text_KeyPress);
             // 
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(152, 97);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 4;
+            this.textBox5.TabIndex = 4;            
+            this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_Text_KeyPress);
             // 
             // textBox6
             // 
@@ -177,7 +179,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(100, 13);
             this.label8.TabIndex = 15;
-            this.label8.Text = "Historico de precios";
+            this.label8.Text = "Histórico de precios";
             // 
             // checkBox1
             // 

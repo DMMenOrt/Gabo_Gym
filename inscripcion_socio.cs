@@ -39,28 +39,19 @@ namespace ConexionDB
         {
             if (ejec.conexion.State == System.Data.ConnectionState.Closed)
             {
-                MessageBox.Show("Necesitas iniciar sesion para continuar");
+                MessageBox.Show("Necesitas iniciar sesion para continuar", "Error al iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             else
             {
-                if (textBox1.Text == "")
+                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "")
                 {
-                    textBox1.Text = "NULL";
-                }
-                if (textBox2.Text == "")
+                    MessageBox.Show("Necesitas ingresar todos los datos para regisrar un socio", "Registrar socio", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                } else
                 {
-                    textBox2.Text = "NULL";
+                    ejec.AltaSocio(textBox1.Text, textBox2.Text, textBox3.Text, duracion, textBox4.Text, clave_producto, precio);
+                    this.Close();
                 }
-                if (textBox3.Text == "")
-                {
-                    textBox3.Text = "NULL";
-                }
-                if (textBox4.Text == "")
-                {
-                    textBox4.Text = "";
-                }
-                ejec.AltaSocio(textBox1.Text, textBox2.Text, textBox3.Text,duracion,textBox4.Text, clave_producto, precio);
-                this.Close();
+               
             }
             
         }
@@ -68,8 +59,13 @@ namespace ConexionDB
         private void button2_Click(object sender, EventArgs e)
         {
             textBox1.Text = ""; textBox2.Text = ""; textBox3.Text = "";
-            MessageBox.Show("Operación cancelada");
+            MessageBox.Show("Operación cancelada", "Cancelar", MessageBoxButtons.OK, MessageBoxIcon.None);
             this.Close();
+        }
+
+        private void textBox4_Text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !(Char.IsNumber(e.KeyChar) || e.KeyChar == 8);
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)

@@ -33,16 +33,20 @@ namespace ConexionDB
             {
                 try
                 {
-                    string fecha_sub = fecha.Substring(0, 10);
-                    query = "DELETE FROM gym.simetrias WHERE 1 = 1 AND clave_socio = " + id + "AND fecha = '" + fecha_sub + "'";
-                    comando = new NpgsqlCommand(query, ejec.conexion);
-                    sda.SelectCommand = comando;
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                    dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                    button1.Enabled = true;
-                    dataGridView1.Refresh();
+                    DialogResult result = MessageBox.Show("¿Desea eliminar la simetrias?", "Eliminar simetrias", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if (result.Equals(DialogResult.OK))
+                    {
+                        string fecha_sub = fecha.Substring(0, 10);
+                        query = "DELETE FROM gym.simetrias WHERE 1 = 1 AND clave_socio = " + id + "AND fecha = '" + fecha_sub + "'";
+                        comando = new NpgsqlCommand(query, ejec.conexion);
+                        sda.SelectCommand = comando;
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                        button1.Enabled = true;
+                        dataGridView1.Refresh();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -112,10 +116,14 @@ namespace ConexionDB
 
         private void button1_Click(object sender, EventArgs e)
         {
-            nombre = textBox2.Text;
-            p_apellido = textBox3.Text;
-            s_apellido = textBox4.Text;
-            ejec.ModificaSocio(nombre,p_apellido,s_apellido,id);            
+            DialogResult result = MessageBox.Show("¿Desea modifiar los datos del socio?", "Actualizar socio", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result.Equals(DialogResult.OK))
+            {
+                nombre = textBox2.Text;
+                p_apellido = textBox3.Text;
+                s_apellido = textBox4.Text;
+                ejec.ModificaSocio(nombre, p_apellido, s_apellido, id);
+            }
         }
 
         public Inspector(Ejecutor exec, String id, String nombre, String p_apellido, String s_apellido, String f_inicio,String f_fin)
