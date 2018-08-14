@@ -618,6 +618,35 @@ namespace ConexionDB{
             }
         }
 
+        public int get_Ultimo_Socio()
+        {
+            int clave_socio;
+            try
+            {
+                query = "SELECT clave_socio FROM gym.socios ORDER BY clave_socio DESC LIMIT 1";
+                NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+                comando.Connection = conexion;
+                comando.CommandTimeout = 60;
+                comando.Prepare();
+                try
+                {
+                    clave_socio = (Int32)comando.ExecuteScalar();
+                    clave_socio++;
+                }
+                catch
+                {
+                    clave_socio = 1;
+                }
+                return clave_socio;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+                return 1;
+            }
+
+        }
+
         
     }
 }

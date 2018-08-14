@@ -43,6 +43,10 @@ namespace ConexionDB
             }
             else
             {
+                if (textBox4.Text == "")
+                {
+                    textBox4.Text = ejec.get_Ultimo_Socio().ToString();
+                }
                 if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "")
                 {
                     MessageBox.Show("Necesitas ingresar todos los datos para regisrar un socio", "Registrar socio", MessageBoxButtons.OK, MessageBoxIcon.Stop);
