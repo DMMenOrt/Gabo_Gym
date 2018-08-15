@@ -64,7 +64,7 @@ namespace ConexionDB
             int clave_producto;
             try
             {
-                String query = "select clave_producto from gym.venta_producto as vp join gym.ventas as v on vp.clave_venta = v.clave_venta join gym.socios as s on v.clave_socio = s.clave_socio WHERE clave_tipo_venta = 1 AND s.clave_socio = "+ clave_socio+" AND fecha_venta = fecha_inicio";
+                String query = "select clave_producto from gym.vista_venta_suscripcion_socio WHERE clave_tipo_venta = 1 AND clave_socio = " + clave_socio+" AND fecha_venta = fecha_inicio";
                 NpgsqlCommand comando = new NpgsqlCommand(query, exec.conexion);
                 comando.Connection = exec.conexion;
                 comando.CommandTimeout = 60;

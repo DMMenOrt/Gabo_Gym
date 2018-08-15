@@ -147,7 +147,7 @@ namespace ConexionDB
         {
             try
             {
-                query = "select prod.clave_producto as " + '"' + "Clave del producto" + '"' + ",tip.tipo_producto as " + '"' + "Tipo de producto" + '"' + ",prod.nombre_producto as " + '"' + "Nombre del producto" + '"' + ",duracion,precio,fecha_alta as " + '"' + "Fecha de registro" + '"' + ",fecha_expiracion as " + '"' + "Fecha de vencimiento" + '"' + " from gym.productos as prod join gym.precios as pre on pre.clave_producto = prod.clave_producto join gym.tipo_producto as tip on prod.clave_tipo_producto = tip.clave_tipo_producto WHERE 1 = 1 ";
+                query = "select clave_producto as " + '"' + "Clave del producto" + '"' + ",tipo_producto as " + '"' + "Tipo de producto" + '"' + ",nombre_producto as " + '"' + "Nombre del producto" + '"' + ",duracion,precio,fecha_alta as " + '"' + "Fecha de registro" + '"' + ",fecha_expiracion as " + '"' + "Fecha de vencimiento" + '"' + " from gym.vista_info_productos WHERE 1 = 1 ";
                 if (comboBox2.SelectedItem.ToString() == "Todo")
                 {
                     where1 = " ";

@@ -816,6 +816,10 @@ ALTER TABLE ONLY usrs.usuarios
 
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
+create view gym.vista_venta_suscripcion_socio as select clave_producto,v.clave_venta,clave_tipo_venta,s.clave_socio,v.fecha_venta,s.fecha_inicio  from gym.venta_producto as vp join gym.ventas as v on vp.clave_venta = v.clave_venta join gym.socios as s on v.clave_socio = s.clave_socio;
+create view gym.vista_info_productos as select prod.clave_producto,prod.clave_tipo_producto,prod.nombre_producto,prod.duracion,pre.fecha_alta,pre.fecha_expiracion,pre.precio,tip.tipo_producto from gym.productos as prod join gym.precios as pre on pre.clave_producto = prod.clave_producto join gym.tipo_producto as tip on prod.clave_tipo_producto = tip.clave_tipo_producto;
+create view gym.vista_detalle_venta as select vp.clave_producto as Codigo,vp.precio_producto as Importe,vp.cantidad as Cantidad,tv.tipo_venta as Descripción,prod.nombre_producto as Producto,pre.precio as Costo from gym.venta_producto as vp join gym.tipos_ventas as tv on vp.clave_tipo_venta = tv.clave_tipo_venta join gym.productos as prod on vp.clave_producto = prod.clave_producto join gym.precios as pre on vp.clave_producto = pre.clave_producto
+
 
 -- Completed on 2018-08-13 01:21:39
 
