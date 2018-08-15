@@ -94,7 +94,7 @@ namespace ConexionDB
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(295, 108);
+            this.button1.Location = new System.Drawing.Point(300, 75);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;
@@ -104,7 +104,7 @@ namespace ConexionDB
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(391, 108);
+            this.button2.Location = new System.Drawing.Point(300, 114);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -117,13 +117,13 @@ namespace ConexionDB
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(21, 157);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(445, 284);
+            this.dataGridView1.Size = new System.Drawing.Size(407, 284);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(328, 68);
+            this.textBox4.Location = new System.Drawing.Point(295, 36);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 9;
@@ -133,7 +133,7 @@ namespace ConexionDB
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(328, 49);
+            this.label4.Location = new System.Drawing.Point(295, 17);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 13);
             this.label4.TabIndex = 10;
@@ -143,7 +143,7 @@ namespace ConexionDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 453);
+            this.ClientSize = new System.Drawing.Size(444, 453);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.dataGridView1);
