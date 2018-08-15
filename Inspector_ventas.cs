@@ -64,7 +64,7 @@ namespace ConexionDB
 
             try
             {
-                String query = "select vp.clave_producto,vp.precio_producto as total_pedido,vp.cantidad,tv.tipo_venta,prod.nombre_producto,pre.precio as precio_unitario from gym.venta_producto as vp join gym.tipos_ventas as tv on vp.clave_tipo_venta = tv.clave_tipo_venta join gym.productos as prod on vp.clave_producto = prod.clave_producto join gym.precios as pre on vp.clave_producto = pre.clave_producto where pre.fecha_expiracion is NULL and vp.clave_venta = "+textBox1.Text;
+                String query = "select vp.clave_producto as Codigo,vp.precio_producto as Importe,vp.cantidad as Cantidad,tv.tipo_venta as Descripción,prod.nombre_producto as Producto,pre.precio as Costo from gym.venta_producto as vp join gym.tipos_ventas as tv on vp.clave_tipo_venta = tv.clave_tipo_venta join gym.productos as prod on vp.clave_producto = prod.clave_producto join gym.precios as pre on vp.clave_producto = pre.clave_producto where pre.fecha_expiracion is NULL and vp.clave_venta = "+textBox1.Text;
                 NpgsqlCommand comando = new NpgsqlCommand(query, exec.conexion);
                 sda.SelectCommand = comando;
                 DataTable dt = new DataTable();

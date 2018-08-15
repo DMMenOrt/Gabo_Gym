@@ -142,7 +142,7 @@ namespace ConexionDB
             
             try
             {
-                query = "select sm.clave_venta,clave_socio,fecha_venta,sum as total from gym.ventas as v join gym.suma_venta as sm on v.clave_venta = sm.clave_venta WHERE 1 = 1 ORDER BY v.fecha_venta DESC";
+                query = "select sm.clave_venta as clave,clave_socio as socio,fecha_venta fecha,sum as total from gym.ventas as v join gym.suma_venta as sm on v.clave_venta = sm.clave_venta WHERE 1 = 1 ORDER BY v.fecha_venta DESC";
                 comando = new NpgsqlCommand(query, exec.conexion);
                 sda.SelectCommand = comando;
                 DataTable dt = new DataTable();

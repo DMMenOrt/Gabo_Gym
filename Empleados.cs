@@ -39,7 +39,7 @@ namespace ConexionDB
 
                 if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "")
                 {
-                    MessageBox.Show("Necesitas ingresar todos los datos para regisrar un empleado", "Registrar socio", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("Necesitas ingresar todos los datos para registrar un empleado", "Registrar empleado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
                 else
                 {
