@@ -49,7 +49,7 @@ namespace ConexionDB
                 }
                 if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "")
                 {
-                    MessageBox.Show("Necesitas ingresar todos los datos para regisrar un socio", "Registrar socio", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("Necesitas ingresar todos los datos para registrar un socio", "Registrar socio", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 } else
                 {
                     ejec.AltaSocio(textBox1.Text, textBox2.Text, textBox3.Text, duracion, textBox4.Text, clave_producto, precio);
