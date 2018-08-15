@@ -86,7 +86,7 @@ namespace ConexionDB
 
         private void button3_Click(object sender, EventArgs e)
         {
-            query = "SELECT clave_socio as " + '"' + "Clave" + '"' + ",nombre as " + '"' + "Nombre" + '"' + ",primer_apellido as " + '"' + "Primer Apellido" + '"' + ", segundo_apellido as " + '"' + "Segundo Apellido" + '"' + ", fecha_inicio as " + '"' + "Fecha de inscripción" + '"' + ", fecha_fin as " + '"' + "Feecha de expiracion de la membresia" + '"' + " FROM gym.socios WHERE 1 = 1 ";
+            query = "SELECT clave_socio as " + '"' + "Clave" + '"' + ",nombre as " + '"' + "Nombre" + '"' + ",primer_apellido as " + '"' + "Primer Apellido" + '"' + ", segundo_apellido as " + '"' + "Segundo Apellido" + '"' + ", fecha_inicio as " + '"' + "Fecha de inscripción" + '"' + ", fecha_fin as " + '"' + "Fecha de expiración de la membresia" + '"' + " FROM gym.socios WHERE 1 = 1 ";
             
             if (textBox1.Text == "")
             {
